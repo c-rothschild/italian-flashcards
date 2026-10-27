@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Italian Flashcards</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect x='3' y='6' width='26' height='20' rx='4' fill='%23ffffff' stroke='%231f7a55' stroke-width='2'/><rect x='5' y='8' width='7' height='16' fill='%231f7a55'/><rect x='20' y='8' width='7' height='16' fill='%23c8423b'/></svg>">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <span class="flag" aria-hidden="true"><i></i><i></i><i></i></span>
+      <span>Italiano</span>
+    </div>
+    <nav class="tabs" role="tablist">
+      <button role="tab" class="tab" data-view="study" aria-selected="true">Flashcards</button>
+      <button role="tab" class="tab" data-view="learn" aria-selected="false">Learn</button>
+      <button role="tab" class="tab" data-view="manage" aria-selected="false">Manage terms</button>
+    </nav>
+  </header>
+
+  <main>
+    <!-- ============ STUDY (flashcards + learn share the category panel) ============ -->
+    <section id="view-study" class="view study-layout">
+      <aside class="panel cat-panel">
+        <div class="panel-head">
+          <h2>Categories</h2>
+          <div class="link-btns">
+            <button class="link" id="cat-all">All</button>
+            <button class="link" id="cat-none">None</button>
+          </div>
+        </div>
+        <ul id="cat-list" class="cat-list"></ul>
+        <p class="cat-total" id="cat-total"></p>
+        <label class="voice-pick" title="Italian voice used for pronunciation">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 5 6 9H2v6h4l5 4V5zM15.5 8.5a5 5 0 0 1 0 7"/></svg>
+          <select id="voice-select" aria-label="Italian voice"></select>
+        </label>
+      </aside>
+
+      <div class="study-main" id="pane-cards">
+        <div class="study-toolbar">
+          <div class="seg" role="group" aria-label="Front of card">
+            <span class="seg-label">Front</span>
+            <button class="seg-btn" data-front="term" aria-pressed="true">Italian</button>
+            <button class="seg-btn" data-front="definition" aria-pressed="false">English</button>
+          </div>
+          <button class="chip-btn" id="shuffle-btn" aria-pressed="false" title="Shuffle cards">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16 3h5v5M4 20 21 3M21 16v5h-5M15 15l6 6M4 4l5 5"/></svg>
+            Shuffle
+          </button>
+          <button class="chip-btn" id="restart-btn" title="Back to the first card">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12a9 9 0 1 0 3-6.7L3 8M3 3v5h5"/></svg>
+            Restart
+          </button>
+        </div>
+
+        <div class="progress" aria-hidden="true"><div class="progress-bar" id="progress-bar"></div></div>
+
+        <div class="card-stage">
+          <div id="card" class="card" tabindex="0" role="button" aria-label="Flashcard. Press space to flip.">
+            <div class="card-inner" id="card-inner">
+              <div class="face front" id="face-front"></div>
+              <div class="face back" id="face-back"></div>
+            </div>
+          </div>
+          <div id="empty-study" class="empty" hidden>
+            <p class="empty-title">No cards to study</p>
+            <p>Pick one or more categories on the left.</p>
+          </div>
+        </div>
+
+        <div class="card-nav">
+          <button class="round-btn" id="prev-btn" aria-label="Previous card">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>
+          </button>
+          <span class="counter" id="counter">0 / 0</span>
+          <button class="round-btn" id="next-btn" aria-label="Next card">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
+          </button>
+        </div>
+
+        <p class="hints">
+          <kbd>Space</kbd> flip <span class="dot">·</span>
+          <kbd>←</kbd> <kbd>→</kbd> previous / next <span class="dot">·</span>
+          <kbd>P</kbd> pronounce
+        </p>
+      </div>
+
+      <div class="study-main" id="pane-learn" hidden>
+        <div class="study-toolbar">
+          <div class="seg" role="group" aria-label="Answer with">
+            <span class="seg-label">Answer with</span>
+            <button class="seg-btn" data-answer="term" aria-pressed="true">Italian</button>
+            <button class="seg-btn" data-answer="definition" aria-pressed="false">English</button>
+            <button class="seg-btn" data-answer="both" aria-pressed="false">Both</button>
+          </div>
+          <button class="chip-btn" id="learn-audio-btn" aria-pressed="false" title="Read the Italian aloud automatically">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 5 6 9H2v6h4l5 4V5zM15.5 8.5a5 5 0 0 1 0 7"/></svg>
+            Auto-play audio
+          </button>
+          <button class="chip-btn" id="learn-restart-btn" title="Start a new Learn session">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12a9 9 0 1 0 3-6.7L3 8M3 3v5h5"/></svg>
+            Restart
+          </button>
+        </div>
+
+        <div class="progress learn-progress" aria-hidden="true">
+          <div class="progress-bar" id="learn-bar-mastered"></div>
+          <div class="progress-bar learning" id="learn-bar-learning"></div>
+        </div>
+        <div class="learn-stats" id="learn-stats"></div>
+
+        <div id="learn-body"></div>
+
+        <p class="hints">
+          <kbd>Enter</kbd> answer / continue (empty = don't know) <span class="dot">·</span>
+          answers ignore capitals and punctuation
+        </p>
+      </div>
+    </section>
+
+    <!-- ============ MANAGE ============ -->
+    <section id="view-manage" class="view" hidden>
+      <div class="manage-grid">
+        <div class="manage-main">
+          <form id="add-form" class="panel add-form" autocomplete="off">
+            <h2>Add a term</h2>
+            <div class="add-fields">
+              <label>Italian
+                <input name="term" required placeholder="e.g. la finestra" lang="it">
+              </label>
+              <label>English
+                <input name="definition" required placeholder="e.g. the window">
+              </label>
+              <label>Category
+                <input name="category" list="cat-options" placeholder="Choose or type a new one">
+              </label>
+              <button class="btn primary" type="submit">Add</button>
+            </div>
+          </form>
+
+          <div class="panel">
+            <div class="table-tools">
+              <input id="search" type="search" placeholder="Search terms…" aria-label="Search terms">
+              <select id="filter-cat" aria-label="Filter by category"></select>
+              <span class="muted" id="result-count"></span>
+            </div>
+
+            <div class="bulk-bar" id="bulk-bar" hidden>
+              <span id="bulk-count"></span>
+              <input id="bulk-cat" list="cat-options" placeholder="Move to category…" aria-label="Move selected to category">
+              <button class="btn" id="bulk-move">Move</button>
+              <button class="btn danger" id="bulk-delete">Delete</button>
+              <button class="link" id="bulk-clear">Clear selection</button>
+            </div>
+
+            <div class="table-wrap">
+              <table class="terms-table">
+                <thead>
+                  <tr>
+                    <th class="col-check"><input type="checkbox" id="check-all" aria-label="Select all shown"></th>
+                    <th>Italian</th>
+                    <th>English</th>
+                    <th>Category</th>
+                    <th class="col-actions"><span class="sr-only">Actions</span></th>
+                  </tr>
+                </thead>
+                <tbody id="terms-body"></tbody>
+              </table>
+              <p class="empty small" id="empty-table" hidden>No terms match.</p>
+            </div>
+          </div>
+        </div>
+
+        <aside class="panel manage-cats">
+          <h2>Categories</h2>
+          <p class="muted small">Rename a category, or delete it. To create one, type a new name in a term's category field.</p>
+          <ul id="manage-cat-list" class="manage-cat-list"></ul>
+          <p class="sync-status" id="sync-status" role="status"></p>
+        </aside>
+      </div>
+    </section>
+  </main>
+
+  <datalist id="cat-options"></datalist>
+
+  <dialog id="confirm-dialog" class="dialog">
+    <form method="dialog">
+      <p class="dialog-title" id="confirm-title"></p>
+      <p id="confirm-body" class="muted"></p>
+      <div class="dialog-actions" id="confirm-actions"></div>
+    </form>
+  </dialog>
+
+  <div id="toast" class="toast" role="status" aria-live="polite" hidden>
+    <span id="toast-msg"></span>
+    <button class="link" id="toast-action" hidden></button>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

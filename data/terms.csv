@@ -1,0 +1,509 @@
+term,definition,category
+Ciao,hi/bye,Greetings & Introductions
+Come ti chiami?,What is your name?,Greetings & Introductions
+Mi chiamo...,My name is ...,Greetings & Introductions
+Piacere,Pleased to meet you,Greetings & Introductions
+Come stai?,How are you?,Feelings & How Are You?
+Sto bene,I am well,Feelings & How Are You?
+Preferisci X o Y,Do you prefer X or Y,Useful Phrases
+Preferisco...,I prefer...,Useful Phrases
+da Dio,awesome,Feelings & How Are You?
+benissimo,very well,Feelings & How Are You?
+bene,well,Feelings & How Are You?
+così così,so-so,Feelings & How Are You?
+male,bad,Feelings & How Are You?
+malissimo,very bad,Feelings & How Are You?
+da cani,terrible,Feelings & How Are You?
+mare,beach,Places
+montagna,mountain,Places
+caffè,coffee,Food & Drink
+tè,tea,Food & Drink
+cane,dog,Animals
+gatto,cat,Animals
+giorno,day,Time & Weather
+notte,night,Time & Weather
+messaggio,message,Social Life & Media
+telefonata,phone call,Social Life & Media
+film,movie,Social Life & Media
+serie TV,TV series,Social Life & Media
+buongiorno,"good morning, good day",Greetings & Introductions
+arrivederci,Goodbye (formal),Greetings & Introductions
+buonasera,Good evening,Greetings & Introductions
+aula,classroom,Classroom & School
+amore,love,Feelings & How Are You?
+banco,desk,Classroom & School
+bottiglia d'acqua,a bottle of water,Food & Drink
+cestino,trash can,Classroom & School
+dizionario,dictionary,Classroom & School
+domanda,question,Classroom & School
+esame,exam,Classroom & School
+errore,error,Classroom & School
+festa,party,Social Life & Media
+foglio,paper,Classroom & School
+gelato,gelato/ice cream,Food & Drink
+gnocchi,gnocchi,Food & Drink
+hotel,hotel,Places
+hamburger,hamburger,Food & Drink
+Italia,Italy,Places
+isola,island,Places
+insegnante,teacher,People
+libro,book,Classroom & School
+lavagna,board,Classroom & School
+macchina,machine,Everyday Objects
+matita,pencil,Classroom & School
+numero,number,Numbers
+Napoli,Naples,Places
+orologio,clock,Everyday Objects
+olio d'oliva,olive oil,Food & Drink
+penna,pen,Classroom & School
+pizza,pizza,Food & Drink
+quaderno,notebook,Classroom & School
+qui,here,Useful Phrases
+Roma,Rome,Places
+ragazzo,boy,People
+ragazza,girl,People
+studente,student (male),People
+studentessa,student (female),People
+tempo,weather/time,Time & Weather
+tavolo,table,Everyday Objects
+università,university,Classroom & School
+voto,grade,Classroom & School
+vino,wine,Food & Drink
+vocali,vowels,Classroom & School
+zaino,backpack,Classroom & School
+zucchero,sugar,Food & Drink
+uno,1,Numbers
+due,2,Numbers
+tre,3,Numbers
+quattro,4,Numbers
+cinque,5,Numbers
+sei,6,Numbers
+sette,7,Numbers
+otto,8,Numbers
+nove,9,Numbers
+dieci,10,Numbers
+undici,11,Numbers
+dodici,12,Numbers
+tredici,13,Numbers
+quattordici,14,Numbers
+quindici,15,Numbers
+sedici,16,Numbers
+diciassette,17,Numbers
+diciotto,18,Numbers
+diciannove,19,Numbers
+venti,20,Numbers
+ventuno,21,Numbers
+ventidue,22,Numbers
+ventitré,23,Numbers
+ventiquattro,24,Numbers
+venticinque,25,Numbers
+ventisei,26,Numbers
+ventisette,27,Numbers
+ventotto,28,Numbers
+ventinove,29,Numbers
+trenta,30,Numbers
+quaranta,40,Numbers
+cinquanta,50,Numbers
+sessanta,60,Numbers
+settanta,70,Numbers
+ottanta,80,Numbers
+novanta,90,Numbers
+cento,100,Numbers
+mille,1000,Numbers
+duemila,2000,Numbers
+Come va?,How's it going?,Greetings & Introductions
+Salve,"Hello (polite, neutral)",Greetings & Introductions
+Grazie,thank you,Greetings & Introductions
+Grazie mille!,Thanks a lot!,Greetings & Introductions
+Prego,"You're welcome / Go ahead, please",Greetings & Introductions
+Scusi!,Excuse me! / Sorry! (formal),Greetings & Introductions
+Buonanotte,Good night,Greetings & Introductions
+Pronto?,Hello? (answering the phone),Greetings & Introductions
+nome,first name,Personal Info & Questions
+cognome,"last name, surname",Personal Info & Questions
+indirizzo,address,Personal Info & Questions
+città,city,Personal Info & Questions
+paese,country,Personal Info & Questions
+nazionalità,nationality,Personal Info & Questions
+professione,profession,Personal Info & Questions
+età,age,Personal Info & Questions
+numero di telefono,phone number,Personal Info & Questions
+e-mail,email,Personal Info & Questions
+biglietto da visita,business card,Personal Info & Questions
+sito web,website,Personal Info & Questions
+Come si chiama?,What's his/her name? (also formal: What's your name?),Personal Info & Questions
+Quanti anni hai?,How old are you? (informal),Personal Info & Questions
+Quanti anni ha?,How old is he/she? (also formal: How old are you?),Personal Info & Questions
+Ho 26 anni.,I'm 26 years old.,Personal Info & Questions
+Di dove sei?,Where are you from? (informal),Personal Info & Questions
+Di dov'è?,Where is he/she from? (also formal: Where are you from?),Personal Info & Questions
+Sono di Roma.,I'm from Rome.,Personal Info & Questions
+Dove abiti?,Where do you live? (informal),Personal Info & Questions
+Abito a Firenze.,I live in Florence.,Personal Info & Questions
+Che lingue parli?,What languages do you speak?,Personal Info & Questions
+Parlo italiano e inglese.,I speak Italian and English.,Personal Info & Questions
+Perché studi italiano?,Why do you study Italian?,Personal Info & Questions
+Che lavoro fai?,What do you do for work?,Personal Info & Questions
+Dove lavori?,Where do you work?,Personal Info & Questions
+Qual è il tuo numero di telefono?,What's your phone number?,Personal Info & Questions
+Qual è la tua mail?,What's your email?,Personal Info & Questions
+Qual è il tuo indirizzo?,What's your address?,Personal Info & Questions
+Sei sposato/a?,Are you married?,Personal Info & Questions
+Lui chi è?,Who is he?,Personal Info & Questions
+Questo è Juan.,This is Juan.,Personal Info & Questions
+Questa è Katy.,This is Katy.,Personal Info & Questions
+lavoro,"job, work",Jobs & Workplaces
+ufficio,office,Jobs & Workplaces
+fabbrica,factory,Jobs & Workplaces
+ospedale,hospital,Jobs & Workplaces
+scuola,school,Jobs & Workplaces
+ristorante,restaurant,Jobs & Workplaces
+negozio,"shop, store",Jobs & Workplaces
+gelateria,ice cream shop,Jobs & Workplaces
+azienda,"company, business",Jobs & Workplaces
+segretario / segretaria,secretary (m / f),Jobs & Workplaces
+direttore / direttrice,"director, manager (m / f)",Jobs & Workplaces
+operaio / operaia,factory worker (m / f),Jobs & Workplaces
+cameriere / cameriera,waiter / waitress,Jobs & Workplaces
+impiegato / impiegata,office worker (m / f),Jobs & Workplaces
+infermiere / infermiera,nurse (m / f),Jobs & Workplaces
+commesso / commessa,shop assistant (m / f),Jobs & Workplaces
+cuoco / cuoca,"cook, chef (m / f)",Jobs & Workplaces
+gelataio / gelataia,ice cream maker (m / f),Jobs & Workplaces
+architetto,architect,Jobs & Workplaces
+modello / modella,model (m / f),Jobs & Workplaces
+professore / professoressa,"professor, teacher (m / f)",Jobs & Workplaces
+attore / attrice,actor / actress,Jobs & Workplaces
+cantante,singer,Jobs & Workplaces
+interprete,interpreter,Jobs & Workplaces
+dottore / dottoressa,doctor (m / f),Jobs & Workplaces
+scienziato / scienziata,scientist (m / f),Jobs & Workplaces
+sportivo / sportiva,athlete (m / f),Jobs & Workplaces
+Lavoro in un ufficio.,I work in an office.,Jobs & Workplaces
+Faccio l'insegnante.,I'm a teacher. (lit. I do the teacher),Jobs & Workplaces
+Faccio il cameriere in un ristorante.,I'm a waiter in a restaurant.,Jobs & Workplaces
+Studio e lavoro.,I study and work.,Jobs & Workplaces
+lingua,language,Nationalities & Languages
+italiano / italiana,Italian (m / f),Nationalities & Languages
+spagnolo / spagnola,Spanish (m / f),Nationalities & Languages
+americano / americana,American (m / f),Nationalities & Languages
+tedesco / tedesca,German (m / f),Nationalities & Languages
+argentino / argentina,Argentinian (m / f),Nationalities & Languages
+inglese,English,Nationalities & Languages
+francese,French,Nationalities & Languages
+cinese,Chinese,Nationalities & Languages
+straniero / straniera,foreigner; foreign (m / f),Nationalities & Languages
+Firenze,Florence,Places
+Milano,Milan,Places
+Sicilia,Sicily,Places
+Sardegna,Sardinia,Places
+via,street,Places
+piazza,square (town square),Places
+a Roma,in Rome (a + city),Places
+in via Verdi,on Verdi Street (in + street),Places
+stazione,train station,Places
+museo,museum,Places
+monumento,monument,Places
+fiume,river,Places
+lago,lake,Places
+vulcano,volcano,Places
+regione,region,Places
+signore,"sir, gentleman, Mr.",People
+signora,"madam, lady, Mrs.",People
+uomo,man,People
+donna,woman,People
+persona,person,People
+amico / amica,friend (m / f),People
+cliente,"customer, client",People
+barista,"barista, bartender",People
+famoso,famous,Adjectives
+geniale,"brilliant, genius",Adjectives
+straordinario,extraordinary,Adjectives
+universitario,"university (adj.), e.g. professore universitario",Adjectives
+interessante,interesting,Adjectives
+giovane,young,Adjectives
+nuovo,new,Adjectives
+tipico,typical,Adjectives
+tradizionale,traditional,Adjectives
+internazionale,international,Adjectives
+abbondante,"big, hearty (abundant)",Adjectives
+vegetariano,vegetarian,Adjectives
+vegano,vegan,Adjectives
+biologico,organic,Adjectives
+fresco,fresh,Adjectives
+integrale,"whole-grain, whole-wheat",Adjectives
+misto,mixed,Adjectives
+freddo,cold,Adjectives
+rosso,red,Adjectives
+bianco,white,Adjectives
+semplice,simple,Adjectives
+veloce,"quick, fast",Adjectives
+stanco,tired,Adjectives
+vicino,"near, close",Adjectives
+preferito,favorite,Adjectives
+naturale,natural; still (water),Adjectives
+frizzante,"sparkling, fizzy",Adjectives
+parlare,to speak,Verbs
+studiare,to study,Verbs
+amare,to love,Verbs
+abitare,to live (reside),Verbs
+lavorare,to work,Verbs
+insegnare,to teach,Verbs
+essere,to be,Verbs
+avere,to have,Verbs
+fare,"to do, to make",Verbs
+chiamarsi,to be called (named),Verbs
+mangiare,to eat,Verbs
+bere,to drink,Verbs
+prendere,to take; to have (food or drink),Verbs
+ordinare,to order,Verbs
+pagare,to pay,Verbs
+prenotare,"to book, to reserve",Verbs
+volere,to want,Verbs
+potere,"to be able to, can",Verbs
+preferire,to prefer,Verbs
+offrire,to offer; to treat (pay for someone),Verbs
+io,I,Subject Pronouns
+tu,you (informal),Subject Pronouns
+lui,he,Subject Pronouns
+lei,she,Subject Pronouns
+Lei,you (formal),Subject Pronouns
+noi,we,Subject Pronouns
+voi,you all (plural you),Subject Pronouns
+loro,they,Subject Pronouns
+io sono,I am,"Conjugation: essere, avere, fare"
+tu sei,you are (informal),"Conjugation: essere, avere, fare"
+lui/lei è,he/she is (also formal you),"Conjugation: essere, avere, fare"
+noi siamo,we are,"Conjugation: essere, avere, fare"
+voi siete,you all are,"Conjugation: essere, avere, fare"
+loro sono,they are,"Conjugation: essere, avere, fare"
+io ho,I have,"Conjugation: essere, avere, fare"
+tu hai,you have (informal),"Conjugation: essere, avere, fare"
+lui/lei ha,he/she has (also formal you),"Conjugation: essere, avere, fare"
+noi abbiamo,we have,"Conjugation: essere, avere, fare"
+voi avete,you all have,"Conjugation: essere, avere, fare"
+loro hanno,they have,"Conjugation: essere, avere, fare"
+io faccio,"I do, I make","Conjugation: essere, avere, fare"
+tu fai,"you do, you make (informal)","Conjugation: essere, avere, fare"
+lui/lei fa,"he/she does, makes (also formal you)","Conjugation: essere, avere, fare"
+noi facciamo,"we do, we make","Conjugation: essere, avere, fare"
+voi fate,"you all do, you all make","Conjugation: essere, avere, fare"
+loro fanno,"they do, they make","Conjugation: essere, avere, fare"
+io parlo,I speak,Conjugation: -are & -ere verbs
+tu parli,you speak (informal),Conjugation: -are & -ere verbs
+lui/lei parla,he/she speaks (also formal you),Conjugation: -are & -ere verbs
+noi parliamo,we speak,Conjugation: -are & -ere verbs
+voi parlate,you all speak,Conjugation: -are & -ere verbs
+loro parlano,they speak,Conjugation: -are & -ere verbs
+io prendo,"I take, I'll have",Conjugation: -are & -ere verbs
+tu prendi,"you take, you'll have (informal)",Conjugation: -are & -ere verbs
+lui/lei prende,he/she takes (also formal you),Conjugation: -are & -ere verbs
+noi prendiamo,"we take, we'll have",Conjugation: -are & -ere verbs
+voi prendete,you all take,Conjugation: -are & -ere verbs
+loro prendono,they take,Conjugation: -are & -ere verbs
+io studio,I study,Conjugation: -are & -ere verbs
+tu studi,you study (informal; just one i),Conjugation: -are & -ere verbs
+tu mangi,you eat (informal; just one i),Conjugation: -are & -ere verbs
+noi mangiamo,we eat,Conjugation: -are & -ere verbs
+io abito,I live (reside),Conjugation: -are & -ere verbs
+io lavoro,I work,Conjugation: -are & -ere verbs
+io bevo,I drink,Conjugation: -are & -ere verbs
+tu bevi,you drink (informal),Conjugation: -are & -ere verbs
+io voglio,I want,Conjugation: volere & potere
+tu vuoi,you want (informal),Conjugation: volere & potere
+lui/lei vuole,he/she wants (also formal you),Conjugation: volere & potere
+noi vogliamo,we want,Conjugation: volere & potere
+voi volete,you all want,Conjugation: volere & potere
+loro vogliono,they want,Conjugation: volere & potere
+io posso,I can,Conjugation: volere & potere
+tu puoi,you can (informal),Conjugation: volere & potere
+lui/lei può,he/she can (also formal you),Conjugation: volere & potere
+noi possiamo,we can,Conjugation: volere & potere
+voi potete,you all can,Conjugation: volere & potere
+loro possono,they can,Conjugation: volere & potere
+io vorrei,I would like (polite),Conjugation: volere & potere
+il,the (masc. sing.; before most consonants),Articles
+lo,"the (masc. sing.; before s + consonant, z, y)",Articles
+l',the (sing.; before a vowel),Articles
+la,the (fem. sing.; before a consonant),Articles
+i,the (masc. plural of il),Articles
+gli,the (masc. plural of lo and l'),Articles
+le,the (fem. plural of la and l'),Articles
+il cameriere,the waiter,Articles
+i camerieri,the waiters,Articles
+il pomodoro,the tomato,Articles
+i pomodori,the tomatoes,Articles
+il bicchiere,the glass,Articles
+i bicchieri,the glasses,Articles
+lo studente,the student (m),Articles
+gli studenti,the students,Articles
+lo spaghetto,the spaghetti strand,Articles
+gli spaghetti,the spaghetti,Articles
+lo yogurt,the yogurt,Articles
+gli yogurt,the yogurts (foreign words don't change),Articles
+l'operaio,the factory worker (m),Articles
+gli operai,the factory workers,Articles
+l'antipasto,the appetizer,Articles
+gli antipasti,the appetizers,Articles
+la segretaria,the secretary (f),Articles
+le segretarie,the secretaries (f),Articles
+la patata,the potato,Articles
+le patate,the potatoes,Articles
+la lezione,the lesson,Articles
+le lezioni,the lessons (-e becomes -i),Articles
+l'insalata,the salad,Articles
+le insalate,the salads,Articles
+il caffè,the coffee,Articles
+i caffè,the coffees (accented words don't change),Articles
+un,"a, an (masc.; most words)",Articles
+uno,"a, an (masc.; before s + consonant, z, y)",Articles
+una,"a, an (fem.; before a consonant)",Articles
+un',"a, an (fem.; before a vowel)",Articles
+un cornetto,a croissant,Articles
+uno yogurt,a yogurt,Articles
+uno studente,a student (m),Articles
+una pasta,a pastry,Articles
+un'idea,an idea,Articles
+un insegnante,a teacher (m),Articles
+un'insegnante,a teacher (f),Articles
+colazione,breakfast,At the Bar & Breakfast
+fare colazione,to have breakfast,At the Bar & Breakfast
+bar,"café, coffee bar",At the Bar & Breakfast
+cornetto,croissant,At the Bar & Breakfast
+biscotti,"cookies, biscuits",At the Bar & Breakfast
+cereali,cereal,At the Bar & Breakfast
+pane e burro,bread and butter,At the Bar & Breakfast
+yogurt,yogurt,At the Bar & Breakfast
+panino,sandwich (on a roll),At the Bar & Breakfast
+toast,toasted sandwich,At the Bar & Breakfast
+uovo / uova,egg / eggs,At the Bar & Breakfast
+cappuccino,cappuccino,At the Bar & Breakfast
+latte,milk,At the Bar & Breakfast
+una tazza di latte,a cup of milk,At the Bar & Breakfast
+spremuta d'arancia,fresh-squeezed orange juice,At the Bar & Breakfast
+succo,juice,At the Bar & Breakfast
+un bicchiere d'acqua,a glass of water,At the Bar & Breakfast
+tè freddo,iced tea,At the Bar & Breakfast
+birra,beer,At the Bar & Breakfast
+Prendiamo un caffè?,Shall we get a coffee?,At the Bar & Breakfast
+Hai tempo?,Do you have time?,At the Bar & Breakfast
+"Sì, con piacere!","Yes, with pleasure!",At the Bar & Breakfast
+Tu che cosa prendi?,What are you having?,At the Bar & Breakfast
+Che cosa prendete?,What will you all have?,At the Bar & Breakfast
+Per me un cappuccino.,A cappuccino for me.,At the Bar & Breakfast
+"Un cornetto, per favore.","A croissant, please.",At the Bar & Breakfast
+Quant'è?,How much is it?,At the Bar & Breakfast
+Offro io!,My treat!,At the Bar & Breakfast
+Ho fame.,I'm hungry.,At the Bar & Breakfast
+euro,euro(s),At the Bar & Breakfast
+centesimi,cents,At the Bar & Breakfast
+menù,menu,At the Restaurant
+trattoria,family-style restaurant,At the Restaurant
+antipasto,"appetizer, starter",At the Restaurant
+primo,"first course (pasta, rice, soup)",At the Restaurant
+secondo,"second course, main course",At the Restaurant
+contorno,side dish,At the Restaurant
+dolce,dessert; sweet,At the Restaurant
+bevande,"drinks, beverages",At the Restaurant
+piatto,"dish, plate",At the Restaurant
+piatto del giorno,dish of the day,At the Restaurant
+pranzo,lunch,At the Restaurant
+cena,dinner,At the Restaurant
+prenotazione,reservation,At the Restaurant
+il conto,"the check, the bill",At the Restaurant
+carta,card (credit card),At the Restaurant
+in contanti,in cash,At the Restaurant
+acqua naturale,still water,At the Restaurant
+acqua frizzante,sparkling water,At the Restaurant
+da bere,to drink (something to drink),At the Restaurant
+da mangiare,to eat (something to eat),At the Restaurant
+bruschetta al pomodoro,bruschetta with tomato,At the Restaurant
+prosciutto e melone,prosciutto (cured ham) and melon,At the Restaurant
+affettati,"cold cuts, sliced cured meats",At the Restaurant
+riso ai funghi,rice with mushrooms,At the Restaurant
+spaghetti alla carbonara,spaghetti carbonara,At the Restaurant
+lasagne,lasagna,At the Restaurant
+pollo arrosto,roast chicken,At the Restaurant
+bistecca,steak,At the Restaurant
+parmigiana di melanzane,eggplant parmesan,At the Restaurant
+patate fritte,french fries,At the Restaurant
+insalata mista,mixed salad,At the Restaurant
+frittura di pesce,fried seafood,At the Restaurant
+tiramisù,tiramisu,At the Restaurant
+Vorrei prenotare un tavolo per due persone.,I'd like to book a table for two.,At the Restaurant
+Abbiamo una prenotazione.,We have a reservation.,At the Restaurant
+A che nome?,Under what name?,At the Restaurant
+Per quando?,For when?,At the Restaurant
+Va bene questo tavolo?,Is this table okay?,At the Restaurant
+Volete ordinare qualcosa da bere?,Would you like to order something to drink?,At the Restaurant
+Per antipasto prendo...,For the appetizer I'll have...,At the Restaurant
+E per primo?,And for the first course?,At the Restaurant
+Avete un piatto del giorno?,Do you have a dish of the day?,At the Restaurant
+Vuole anche un contorno?,Would you also like a side dish? (formal),At the Restaurant
+"Il conto, per favore.","The check, please.",At the Restaurant
+Posso pagare con la carta?,Can I pay by card?,At the Restaurant
+Per adesso va bene così.,That's all for now.,At the Restaurant
+Buon appetito!,Enjoy your meal!,At the Restaurant
+per favore,please,At the Restaurant
+Subito!,Right away!,At the Restaurant
+Certo!,Of course! Sure!,At the Restaurant
+cibo,food,Food & Drink
+cucina,"kitchen; cuisine, cooking",Food & Drink
+pane,bread,Food & Drink
+burro,butter,Food & Drink
+formaggio,cheese,Food & Drink
+carne,meat,Food & Drink
+pesce,fish,Food & Drink
+pollo,chicken,Food & Drink
+riso,rice,Food & Drink
+pasta,pasta; pastry (at the bar),Food & Drink
+insalata,salad,Food & Drink
+frutta,fruit,Food & Drink
+verdure,vegetables,Food & Drink
+pomodoro,tomato,Food & Drink
+patata,potato,Food & Drink
+funghi,mushrooms,Food & Drink
+melanzane,eggplants,Food & Drink
+basilico,basil,Food & Drink
+aglio,garlic,Food & Drink
+vino rosso,red wine,Food & Drink
+vino bianco,white wine,Food & Drink
+pasta integrale,whole-wheat pasta,Food & Drink
+cibo biologico,organic food,Food & Drink
+trentuno,31,Numbers
+trentatré,33,Numbers
+trentotto,38,Numbers
+quarantadue,42,Numbers
+cinquantuno,51,Numbers
+ottantacinque,85,Numbers
+novantanove,99,Numbers
+mattina,morning,Time & Weather
+oggi,today,Time & Weather
+domani,tomorrow,Time & Weather
+adesso,now,Time & Weather
+e,and,Useful Phrases
+ma,but,Useful Phrases
+non,not,Useful Phrases
+di,"of, from",Useful Phrases
+a,"to, at, in (with cities)",Useful Phrases
+in,in,Useful Phrases
+sì,yes,Useful Phrases
+che,"that, which, what",Useful Phrases
+anche,"also, too",Useful Phrases
+invece,"instead, on the other hand",Useful Phrases
+perché,why; because,Useful Phrases
+dove,where,Useful Phrases
+quanto / quanti,how much / how many,Useful Phrases
+chi,who,Useful Phrases
+che cosa,what,Useful Phrases
+qual è,"what is, which is",Useful Phrases
+questo / questa,this (m / f),Useful Phrases
+molto,very; a lot,Useful Phrases
+solo,only,Useful Phrases
+qualcosa,something,Useful Phrases
+niente,nothing,Useful Phrases
+allora,"so, then",Useful Phrases
+ecco,"here is, here are",Useful Phrases
+Va bene.,Okay. / All right.,Useful Phrases
+Carino!,Cute! / Nice!,Useful Phrases
+Per oggi va bene così.,That's enough for today.,Useful Phrases
