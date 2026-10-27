@@ -1,0 +1,608 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		0406B3969725F75D60EADBDD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1C9078AC4AF84422067AC44F /* Assets.xcassets */; };
+		0E7A132F3BAC8E7C1A40A269 /* StudyFlowUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74D06C12506245F46D10CF4B /* StudyFlowUITests.swift */; };
+		0F2221F851A3F9BF09731D42 /* Term.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F33258282F02EFC8947EEDB /* Term.swift */; };
+		316D2646D8217677F3452D12 /* AnswerGrader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6B10A046713E9A99F2DC803 /* AnswerGrader.swift */; };
+		5BC5B1D84C4EBE257D3E29EA /* TermRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = A75DD0CE94DB1B8CC8001903 /* TermRepository.swift */; };
+		8F30573708C85870ED8C23E6 /* ItalianFlashcardsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0C019F669BE9E403D00479 /* ItalianFlashcardsApp.swift */; };
+		9C0B0A585FDC11F49D76B701 /* LearnSessionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E33A44FF4D450AEB33ADCF9 /* LearnSessionTests.swift */; };
+		9FCBE9CD2D57218B49B1F042 /* CategoriesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8AB6A43CE09348E1AC872DA /* CategoriesView.swift */; };
+		A9CBCAAC891CBC0454C66019 /* Speaker.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3F7E33CAB51C7993EAF9C98 /* Speaker.swift */; };
+		BA436A0725BF7629A92B95F4 /* TermRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD0D7B3FE5022509C704738 /* TermRepositoryTests.swift */; };
+		C1A1AA61FF54EE2EF9ED352B /* FlashcardsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5D744BC46E27B791D8CF6DC /* FlashcardsView.swift */; };
+		C2B1EF686B8AE1CE9D006EB7 /* LearnSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ECADFF84EFFF8EEDB901BA6 /* LearnSession.swift */; };
+		D1B5D9DF3C057505EF20A1F2 /* LearnView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F7427A9C43D97266283E323 /* LearnView.swift */; };
+		E9541A562DB1179DB0A51F3C /* AnswerGraderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2EF4506468F01CF2E5DD300 /* AnswerGraderTests.swift */; };
+		FE6CC84A589FCC6FAF128D26 /* terms.csv in Resources */ = {isa = PBXBuildFile; fileRef = E018823C6A6570D9D887AD17 /* terms.csv */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		36A529FA0AF19C8B922CB8D7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 146BC397676C4DA46A10E619 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 6339C899740CD72D48652299;
+			remoteInfo = ItalianFlashcards;
+		};
+		A5BC76A37B471EAD0C28B35B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 146BC397676C4DA46A10E619 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 6339C899740CD72D48652299;
+			remoteInfo = ItalianFlashcards;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		1C9078AC4AF84422067AC44F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		1F33258282F02EFC8947EEDB /* Term.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Term.swift; sourceTree = "<group>"; };
+		2CD0D7B3FE5022509C704738 /* TermRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermRepositoryTests.swift; sourceTree = "<group>"; };
+		49AC31F91ED0738C7D6681B7 /* ItalianFlashcardsUITests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = ItalianFlashcardsUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		5ECADFF84EFFF8EEDB901BA6 /* LearnSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LearnSession.swift; sourceTree = "<group>"; };
+		6E33A44FF4D450AEB33ADCF9 /* LearnSessionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LearnSessionTests.swift; sourceTree = "<group>"; };
+		74D06C12506245F46D10CF4B /* StudyFlowUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyFlowUITests.swift; sourceTree = "<group>"; };
+		7F7427A9C43D97266283E323 /* LearnView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LearnView.swift; sourceTree = "<group>"; };
+		982F84AC6A31D0B343DDD7BF /* ItalianFlashcardsTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = ItalianFlashcardsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		A3F7E33CAB51C7993EAF9C98 /* Speaker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Speaker.swift; sourceTree = "<group>"; };
+		A75DD0CE94DB1B8CC8001903 /* TermRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermRepository.swift; sourceTree = "<group>"; };
+		C2EF4506468F01CF2E5DD300 /* AnswerGraderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswerGraderTests.swift; sourceTree = "<group>"; };
+		D6B10A046713E9A99F2DC803 /* AnswerGrader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswerGrader.swift; sourceTree = "<group>"; };
+		DB06DAC1EBDC3BC637657D27 /* ItalianFlashcards.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = ItalianFlashcards.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		E018823C6A6570D9D887AD17 /* terms.csv */ = {isa = PBXFileReference; path = terms.csv; sourceTree = "<group>"; };
+		F5D744BC46E27B791D8CF6DC /* FlashcardsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlashcardsView.swift; sourceTree = "<group>"; };
+		F8AB6A43CE09348E1AC872DA /* CategoriesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesView.swift; sourceTree = "<group>"; };
+		FA0C019F669BE9E403D00479 /* ItalianFlashcardsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItalianFlashcardsApp.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		001DD7F67C76D293473E8ED8 = {
+			isa = PBXGroup;
+			children = (
+				364F0E56AB918C76E2FA5935 /* flashcard_app */,
+				18F1E1C0FB3150E50332B7FA /* ItalianFlashcards */,
+				C29D3E00EE52D1260977C981 /* ItalianFlashcardsTests */,
+				AF99FFC1430F24D55827C82A /* ItalianFlashcardsUITests */,
+				455C7F2B6F3D43272E6823E5 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		18F1E1C0FB3150E50332B7FA /* ItalianFlashcards */ = {
+			isa = PBXGroup;
+			children = (
+				1C9078AC4AF84422067AC44F /* Assets.xcassets */,
+				FA0C019F669BE9E403D00479 /* ItalianFlashcardsApp.swift */,
+				374435E2E4F9AA52A3B71452 /* Learn */,
+				E4B81A4F4CF0A3090C04FFA4 /* Model */,
+				7AB7DD71E2A8CB41724D432C /* Speech */,
+				8169F80F68E240C84D5CE588 /* Views */,
+			);
+			path = ItalianFlashcards;
+			sourceTree = "<group>";
+		};
+		364F0E56AB918C76E2FA5935 /* flashcard_app */ = {
+			isa = PBXGroup;
+			children = (
+				F8B38F54631B00A1700DD467 /* data */,
+			);
+			name = flashcard_app;
+			path = ..;
+			sourceTree = "<group>";
+		};
+		374435E2E4F9AA52A3B71452 /* Learn */ = {
+			isa = PBXGroup;
+			children = (
+				D6B10A046713E9A99F2DC803 /* AnswerGrader.swift */,
+				5ECADFF84EFFF8EEDB901BA6 /* LearnSession.swift */,
+			);
+			path = Learn;
+			sourceTree = "<group>";
+		};
+		455C7F2B6F3D43272E6823E5 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				DB06DAC1EBDC3BC637657D27 /* ItalianFlashcards.app */,
+				982F84AC6A31D0B343DDD7BF /* ItalianFlashcardsTests.xctest */,
+				49AC31F91ED0738C7D6681B7 /* ItalianFlashcardsUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		7AB7DD71E2A8CB41724D432C /* Speech */ = {
+			isa = PBXGroup;
+			children = (
+				A3F7E33CAB51C7993EAF9C98 /* Speaker.swift */,
+			);
+			path = Speech;
+			sourceTree = "<group>";
+		};
+		8169F80F68E240C84D5CE588 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				F8AB6A43CE09348E1AC872DA /* CategoriesView.swift */,
+				F5D744BC46E27B791D8CF6DC /* FlashcardsView.swift */,
+				7F7427A9C43D97266283E323 /* LearnView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		AF99FFC1430F24D55827C82A /* ItalianFlashcardsUITests */ = {
+			isa = PBXGroup;
+			children = (
+				74D06C12506245F46D10CF4B /* StudyFlowUITests.swift */,
+			);
+			path = ItalianFlashcardsUITests;
+			sourceTree = "<group>";
+		};
+		C29D3E00EE52D1260977C981 /* ItalianFlashcardsTests */ = {
+			isa = PBXGroup;
+			children = (
+				C2EF4506468F01CF2E5DD300 /* AnswerGraderTests.swift */,
+				6E33A44FF4D450AEB33ADCF9 /* LearnSessionTests.swift */,
+				2CD0D7B3FE5022509C704738 /* TermRepositoryTests.swift */,
+			);
+			path = ItalianFlashcardsTests;
+			sourceTree = "<group>";
+		};
+		E4B81A4F4CF0A3090C04FFA4 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				1F33258282F02EFC8947EEDB /* Term.swift */,
+				A75DD0CE94DB1B8CC8001903 /* TermRepository.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		F8B38F54631B00A1700DD467 /* data */ = {
+			isa = PBXGroup;
+			children = (
+				E018823C6A6570D9D887AD17 /* terms.csv */,
+			);
+			path = data;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		6339C899740CD72D48652299 /* ItalianFlashcards */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6036D1E4ED13C5D93A548145 /* Build configuration list for PBXNativeTarget "ItalianFlashcards" */;
+			buildPhases = (
+				370B3285BD8D9AD07F65FA08 /* Sources */,
+				08F571851549AFF0A91F11D0 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ItalianFlashcards;
+			packageProductDependencies = (
+			);
+			productName = ItalianFlashcards;
+			productReference = DB06DAC1EBDC3BC637657D27 /* ItalianFlashcards.app */;
+			productType = "com.apple.product-type.application";
+		};
+		7C613A8AC28589F5CB22259B /* ItalianFlashcardsTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FC74520C4FF4D29ED42DFC8E /* Build configuration list for PBXNativeTarget "ItalianFlashcardsTests" */;
+			buildPhases = (
+				3100FC7F8066E85AB653F6AA /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				D3E7343D22D0503E0FCCDA3D /* PBXTargetDependency */,
+			);
+			name = ItalianFlashcardsTests;
+			packageProductDependencies = (
+			);
+			productName = ItalianFlashcardsTests;
+			productReference = 982F84AC6A31D0B343DDD7BF /* ItalianFlashcardsTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		C9D88D1085D6768AF5CB980D /* ItalianFlashcardsUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 91D6AC69A0133182BC53E06D /* Build configuration list for PBXNativeTarget "ItalianFlashcardsUITests" */;
+			buildPhases = (
+				696F04C23C824797BA9CF9D3 /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				7305B5C7BDD8DA112015AB5F /* PBXTargetDependency */,
+			);
+			name = ItalianFlashcardsUITests;
+			packageProductDependencies = (
+			);
+			productName = ItalianFlashcardsUITests;
+			productReference = 49AC31F91ED0738C7D6681B7 /* ItalianFlashcardsUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		146BC397676C4DA46A10E619 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1430;
+				TargetAttributes = {
+					6339C899740CD72D48652299 = {
+						ProvisioningStyle = Automatic;
+					};
+					C9D88D1085D6768AF5CB980D = {
+						TestTargetID = 6339C899740CD72D48652299;
+					};
+				};
+			};
+			buildConfigurationList = CBA1D91C1EB116DAD26745B8 /* Build configuration list for PBXProject "ItalianFlashcards" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = 001DD7F67C76D293473E8ED8;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 455C7F2B6F3D43272E6823E5 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				6339C899740CD72D48652299 /* ItalianFlashcards */,
+				7C613A8AC28589F5CB22259B /* ItalianFlashcardsTests */,
+				C9D88D1085D6768AF5CB980D /* ItalianFlashcardsUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		08F571851549AFF0A91F11D0 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0406B3969725F75D60EADBDD /* Assets.xcassets in Resources */,
+				FE6CC84A589FCC6FAF128D26 /* terms.csv in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		3100FC7F8066E85AB653F6AA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E9541A562DB1179DB0A51F3C /* AnswerGraderTests.swift in Sources */,
+				9C0B0A585FDC11F49D76B701 /* LearnSessionTests.swift in Sources */,
+				BA436A0725BF7629A92B95F4 /* TermRepositoryTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		370B3285BD8D9AD07F65FA08 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				316D2646D8217677F3452D12 /* AnswerGrader.swift in Sources */,
+				9FCBE9CD2D57218B49B1F042 /* CategoriesView.swift in Sources */,
+				C1A1AA61FF54EE2EF9ED352B /* FlashcardsView.swift in Sources */,
+				8F30573708C85870ED8C23E6 /* ItalianFlashcardsApp.swift in Sources */,
+				C2B1EF686B8AE1CE9D006EB7 /* LearnSession.swift in Sources */,
+				D1B5D9DF3C057505EF20A1F2 /* LearnView.swift in Sources */,
+				A9CBCAAC891CBC0454C66019 /* Speaker.swift in Sources */,
+				0F2221F851A3F9BF09731D42 /* Term.swift in Sources */,
+				5BC5B1D84C4EBE257D3E29EA /* TermRepository.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		696F04C23C824797BA9CF9D3 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0E7A132F3BAC8E7C1A40A269 /* StudyFlowUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		7305B5C7BDD8DA112015AB5F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 6339C899740CD72D48652299 /* ItalianFlashcards */;
+			targetProxy = 36A529FA0AF19C8B922CB8D7 /* PBXContainerItemProxy */;
+		};
+		D3E7343D22D0503E0FCCDA3D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 6339C899740CD72D48652299 /* ItalianFlashcards */;
+			targetProxy = A5BC76A37B471EAD0C28B35B /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		10986E049383DE6997B1B921 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.crothschild.ItalianFlashcardsTests;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ItalianFlashcards.app/ItalianFlashcards";
+			};
+			name = Release;
+		};
+		4310D4460AAF6948E5B0E3EB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.crothschild.ItalianFlashcardsTests;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ItalianFlashcards.app/ItalianFlashcards";
+			};
+			name = Debug;
+		};
+		4635B189F10CFF3616F323FA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.crothschild.ItalianFlashcardsUITests;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = ItalianFlashcards;
+			};
+			name = Debug;
+		};
+		5FE5702618CF075463285015 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = Italiano;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationPortrait;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.crothschild.ItalianFlashcards;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		692A455BA79B36547A2B0D9B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.crothschild.ItalianFlashcardsUITests;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = ItalianFlashcards;
+			};
+			name = Release;
+		};
+		7371A0BC3F7E67CA1CE92162 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MARKETING_VERSION = 1.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		AEBBDD152C0DCA80E96C2E68 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MARKETING_VERSION = 1.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		C53C7799CD0837BA4F21687F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = Italiano;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationPortrait;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.crothschild.ItalianFlashcards;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		6036D1E4ED13C5D93A548145 /* Build configuration list for PBXNativeTarget "ItalianFlashcards" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C53C7799CD0837BA4F21687F /* Debug */,
+				5FE5702618CF075463285015 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		91D6AC69A0133182BC53E06D /* Build configuration list for PBXNativeTarget "ItalianFlashcardsUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4635B189F10CFF3616F323FA /* Debug */,
+				692A455BA79B36547A2B0D9B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		CBA1D91C1EB116DAD26745B8 /* Build configuration list for PBXProject "ItalianFlashcards" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7371A0BC3F7E67CA1CE92162 /* Debug */,
+				AEBBDD152C0DCA80E96C2E68 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		FC74520C4FF4D29ED42DFC8E /* Build configuration list for PBXNativeTarget "ItalianFlashcardsTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4310D4460AAF6948E5B0E3EB /* Debug */,
+				10986E049383DE6997B1B921 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 146BC397676C4DA46A10E619 /* Project object */;
+}
