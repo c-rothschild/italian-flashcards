@@ -5,6 +5,7 @@ struct ItalianFlashcardsApp: App {
     @State private var repository = TermRepository()
     @State private var selection = CategorySelection()
     @State private var speaker = Speaker()
+    @State private var progress = Self.makeProgressStore()
     @Environment(\.scenePhase) private var scenePhase
 
     var body: some Scene {
@@ -13,11 +14,37 @@ struct ItalianFlashcardsApp: App {
                 .environment(repository)
                 .environment(selection)
                 .environment(speaker)
+                .environment(progress)
                 .task { await repository.refresh() }
+                .task(id: scenePhase) {
+                    // While the app is open, check for progress made on the website now and then.
+                    guard scenePhase == .active else { return }
+                    while !Task.isCancelled {
+                        await progress.sync()
+                        try? await Task.sleep(for: .seconds(progress.hasToken ? 30 : 120))
+                    }
+                }
                 .onChange(of: scenePhase) { _, phase in
                     // Pick up cards edited on the website while the app was in the background.
                     if phase == .active { Task { await repository.refreshIfStale() } }
+                    // Save progress before iOS suspends the app.
+                    if phase == .background, progress.hasUnsavedChanges { saveInBackground() }
                 }
+        }
+    }
+
+    /// UI tests start from no progress and stay offline so they don't depend on (or change) real progress.
+    private static func makeProgressStore() -> ProgressStore {
+        guard ProcessInfo.processInfo.arguments.contains("-UITestFreshProgress") else { return ProgressStore() }
+        let dir = FileManager.default.temporaryDirectory.appending(path: UUID().uuidString)
+        return ProgressStore(directory: dir, syncEnabled: false)
+    }
+
+    private func saveInBackground() {
+        let id = UIApplication.shared.beginBackgroundTask(withName: "Save progress")
+        Task {
+            await progress.sync()
+            UIApplication.shared.endBackgroundTask(id)
         }
     }
 }

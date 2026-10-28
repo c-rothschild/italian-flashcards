@@ -9,6 +9,7 @@ final class StudyFlowUITests: XCTestCase {
     override func setUp() {
         continueAfterFailure = false
         app = XCUIApplication()
+        app.launchArguments = ["-UITestFreshProgress"] // start from no progress, don't sync it
         app.launch()
     }
 
@@ -47,11 +48,19 @@ final class StudyFlowUITests: XCTestCase {
         animals.coordinate(withNormalizedOffset: CGVector(dx: 0.95, dy: 0.5)).tap()
         XCTAssertEqual(animals.value as? String, "1")
 
-        // Learn: a wrong answer offers the override.
+        // Learn: skip the first word (it moves to the end), then a wrong answer offers the override.
         tab("Learn")
         let field = app.textFields.firstMatch
         XCTAssertTrue(field.waitForExistence(timeout: 5))
         snap("4_learn")
+        app.buttons["Skip"].tap()
+        XCTAssertTrue(app.staticTexts.matching(NSPredicate(format: "label BEGINSWITH 'Skipped'")).firstMatch.waitForExistence(timeout: 3))
+        snap("4b_skipped")
+        // Undo brings it straight back; skip it again.
+        app.buttons["Undo last skip"].tap()
+        XCTAssertFalse(app.buttons["Undo last skip"].exists)
+        app.buttons["Skip"].tap()
+        XCTAssertTrue(app.buttons["Undo last skip"].waitForExistence(timeout: 3))
         field.tap()
         field.typeText("zzzz\n")
         let override = app.buttons["Override: I was right"]
@@ -59,8 +68,14 @@ final class StudyFlowUITests: XCTestCase {
         snap("5_wrong")
         override.tap()
 
-        // Second card: an empty answer counts as "Don't know" (no override), then retype.
+        // The skipped word comes back in the next round.
+        let continueRound = app.buttons["Continue to next round"]
+        XCTAssertTrue(continueRound.waitForExistence(timeout: 5))
+        continueRound.tap()
+
+        // An empty answer counts as "Don't know" (no override), then retype.
         XCTAssertTrue(app.buttons["Answer"].waitForExistence(timeout: 5))
+        XCTAssertFalse(app.buttons["Skip"].exists, "no skipping the last word left")
         field.typeText("\n")
         let answer = app.staticTexts["expectedAnswer"]
         XCTAssertTrue(answer.waitForExistence(timeout: 5))

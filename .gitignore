@@ -9,3 +9,5 @@ ios/*.xcodeproj/xcuserdata/
 ios/*.xcodeproj/project.xcworkspace/xcuserdata/
 DerivedData/
 *.xcuserstate
+data/progress.json
+.progress-*.json

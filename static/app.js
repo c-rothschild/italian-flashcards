@@ -176,7 +176,18 @@ function confirmDialog(title, body, buttons) {
     ...buttons.map((b) => el("button", { class: "btn " + (b.class || ""), value: b.value }, b.label)),
   );
   return new Promise((resolve) => {
-    dlg.addEventListener("close", () => resolve(dlg.returnValue), { once: true });
+    const form = dlg.querySelector("form");
+    // Resolve on the button press itself; "close" also covers Esc. (Chrome can hold back
+    // "close" for a tab that isn't being drawn.)
+    const onSubmit = (e) => finish(e.submitter?.value ?? "");
+    const onClose = () => finish(dlg.returnValue);
+    const finish = (value) => {
+      form.removeEventListener("submit", onSubmit);
+      dlg.removeEventListener("close", onClose);
+      resolve(value);
+    };
+    form.addEventListener("submit", onSubmit);
+    dlg.addEventListener("close", onClose);
     dlg.returnValue = "";
     dlg.showModal();
   });
@@ -310,9 +321,7 @@ function renderCategoryPanel() {
 function selectionChanged() {
   saveSelection();
   rebuildDeck();
-  const hadProgress = learn.s && [...learn.s.items.values()].some((i) => i.status !== "new");
-  resetLearn();
-  if (hadProgress && state.view === "learn") toast("Categories changed — started a new Learn session.", { ms: 2500 });
+  resetLearn(); // the new session picks up your saved progress
   renderAll();
 }
 
@@ -458,6 +467,76 @@ function gradeAnswer(input, answer, english) {
   return "wrong";
 }
 
+/* ================= learn progress (synced with the iPhone app) ================= */
+
+// key -> { status: "new"|"learning"|"mastered", misses, firstTry, updated }. The server keeps
+// the copy in data/progress.json and syncs it with GitHub, where the iPhone app reads it.
+const progress = {
+  terms: new Map(),
+  revision: null,
+  pending: {}, // records not yet saved on the server
+  sync: null,
+  flushTimer: null,
+};
+
+async function loadProgress({ refresh = false } = {}) {
+  let data;
+  try {
+    const res = await fetch("/api/progress" + (refresh ? "?refresh=1" : ""));
+    if (!res.ok) return;
+    data = await res.json();
+  } catch { return; }
+  applyProgress(data);
+}
+
+function applyProgress(data) {
+  progress.sync = data.sync;
+  if (data.revision !== progress.revision) {
+    progress.revision = data.revision;
+    progress.terms = new Map(Object.entries(data.terms || {}));
+    for (const [k, rec] of Object.entries(progress.pending)) progress.terms.set(k, rec); // ours are newer
+    if (syncLearnWithProgress() && state.view === "learn") { renderLearn(); return; }
+  }
+  if (state.view === "learn") renderLearnProgress();
+}
+
+function saveProgress(records) {
+  const updated = Date.now();
+  for (const [k, rec] of Object.entries(records)) {
+    const full = { ...rec, updated };
+    progress.terms.set(k, full);
+    progress.pending[k] = full;
+  }
+  clearTimeout(progress.flushTimer);
+  progress.flushTimer = setTimeout(flushProgress, 300);
+}
+
+async function flushProgress() {
+  const sent = progress.pending;
+  if (!Object.keys(sent).length) return;
+  let data;
+  try {
+    const res = await fetch("/api/progress", {
+      method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ terms: sent }),
+    });
+    if (!res.ok) throw new Error(String(res.status));
+    data = await res.json();
+  } catch {
+    progress.flushTimer = setTimeout(flushProgress, 10000); // server unreachable: try again later
+    return;
+  }
+  for (const [k, rec] of Object.entries(sent)) if (progress.pending[k] === rec) delete progress.pending[k];
+  applyProgress(data);
+}
+
+// Saves an item's Learn state for its card (not for "practice missed" sessions).
+function recordProgress(key) {
+  const s = learn.s;
+  if (s.missedOnly) return;
+  const item = s.items.get(key);
+  saveProgress({ [key]: { status: item.status, misses: item.misses, firstTry: item.firstTry } });
+}
+
 const learn = {
   answerWith: store.get("learnAnswer", "term"), // "term" | "definition" | "both"
   autoAudio: store.get("learnAudio", false),
@@ -465,9 +544,30 @@ const learn = {
   autoTimer: null,
 };
 
+// Picks up where you left off: mastered terms are done, ones you're still learning come first.
 function newSession(pool, { missedOnly = false } = {}) {
-  const items = new Map(pool.map((t) => [cardKey(t), { t, status: "new", misses: 0, firstTry: null }]));
-  return { items, queue: shuffled([...items.keys()]), round: null, phase: "idle", q: null, missedOnly };
+  const items = new Map(pool.map((t) => {
+    const rec = missedOnly ? null : progress.terms.get(cardKey(t));
+    return [cardKey(t), { t, status: rec?.status || "new", misses: rec?.misses || 0, firstTry: rec?.firstTry ?? null }];
+  }));
+  const keys = [...items.keys()];
+  const learning = keys.filter((k) => items.get(k).status === "learning");
+  const fresh = keys.filter((k) => items.get(k).status === "new");
+  return { items, queue: [...shuffled(learning), ...shuffled(fresh)], round: null, phase: "idle", q: null, missedOnly, skips: [] };
+}
+
+// "Restart" / "Learn again": forget the progress on the selected terms (here and on the phone).
+function restartLearn() {
+  const reset = {};
+  for (const t of state.terms) {
+    const k = cardKey(t);
+    if (isSelected(t.category) && progress.terms.has(k) && progress.terms.get(k).status !== "new") {
+      reset[k] = { status: "new", misses: 0, firstTry: null };
+    }
+  }
+  if (Object.keys(reset).length) saveProgress(reset);
+  resetLearn();
+  renderLearn();
 }
 
 function resetLearn() {
@@ -497,6 +597,7 @@ function askCurrent() {
   const key = s.round.keys[s.round.idx];
   const answerSide = learn.answerWith === "both" ? (Math.random() < 0.5 ? "term" : "definition") : learn.answerWith;
   s.q = { key, answerSide, given: null, grade: null, retypeError: false, firstAttempt: s.items.get(key).firstTry === null };
+  s.skips = s.skips.filter((k) => k !== key); // it's back, so there's no skip left to undo
   s.phase = "asking";
   if (learn.autoAudio && answerSide === "definition") speak(s.items.get(key).t.term);
 }
@@ -521,6 +622,7 @@ function submitAnswer(input) {
     s.round.results.set(s.q.key, true);
     s.phase = "correct";
   }
+  recordProgress(s.q.key);
   if (learn.autoAudio && s.q.answerSide === "term") speak(item.t.term);
   renderLearn();
 }
@@ -535,6 +637,7 @@ function giveUp() {
   s.q.given = null;
   s.q.grade = "wrong";
   s.phase = "wrong";
+  recordProgress(s.q.key);
   if (learn.autoAudio && s.q.answerSide === "term") speak(item.t.term);
   renderLearn();
 }
@@ -546,6 +649,7 @@ function overrideCorrect() {
   if (s.q.firstAttempt) item.firstTry = true;
   item.status = "mastered";
   s.round.results.set(s.q.key, true);
+  recordProgress(s.q.key);
   nextQuestion();
 }
 
@@ -569,10 +673,68 @@ function nextQuestion() {
   renderLearn();
 }
 
+// Skip: move the current term to the very end of everything still to learn, without
+// counting it as right or wrong.
+function canSkip() {
+  const s = learn.s;
+  return [...s.items].some(([k, item]) => k !== s.q.key && item.status !== "mastered");
+}
+
+function skipQuestion() {
+  const s = learn.s;
+  const r = s.round;
+  if (s.phase !== "asking" || !canSkip()) return;
+  const item = currentItem();
+  const shown = answerText(item, s.q.answerSide === "term" ? "definition" : "term"); // don't reveal the answer
+  r.keys.splice(r.idx, 1); // idx now points at the next term in the round
+  s.queue.push(s.q.key);
+  s.skips.push(s.q.key);
+  if (r.idx < r.keys.length) askCurrent();
+  else if (r.keys.length) endRound();
+  else startRound(); // nothing was answered this round, so skip the empty summary
+  toast(`Skipped “${shown}”. It'll come back at the end.`, { ms: 2200, action: { label: "Undo", run: undoSkip } });
+  renderLearn();
+}
+
+// The most recent skipped term that hasn't come back yet (undo works between questions).
+function lastSkip() {
+  const s = learn.s;
+  if (!s || !["asking", "summary"].includes(s.phase)) return null;
+  while (s.skips.length && !s.items.has(s.skips.at(-1))) s.skips.pop(); // deleted on the Manage tab
+  return s.skips.at(-1) ?? null;
+}
+
+// Bring the last skipped term back right away.
+function undoSkip() {
+  const s = learn.s;
+  const key = lastSkip();
+  if (!key) return;
+  s.skips.pop();
+  s.queue = s.queue.filter((k) => k !== key);
+  const r = s.round;
+  if (s.phase === "asking") {
+    const later = r.keys.indexOf(key, r.idx + 1); // already pulled into this round
+    if (later !== -1) r.keys.splice(later, 1);
+    r.keys.splice(r.idx, 0, key); // ask it now; the current term is next
+    askCurrent();
+  } else {
+    s.queue.unshift(key);
+    startRound();
+  }
+  renderLearn();
+}
+
+function undoSkipButton() {
+  const key = lastSkip();
+  if (!key) return null;
+  const item = learn.s.items.get(key);
+  return el("button", { class: "link", type: "button", onclick: undoSkip, title: `Bring back “${item.t.term}” now` }, "Undo last skip");
+}
+
 function endRound() {
   const s = learn.s;
   // Missed terms lead the next round, the way Quizlet keeps working on them.
-  const missed = s.round.keys.filter((k) => s.items.has(k) && !s.round.results.get(k));
+  const missed = s.round.keys.filter((k) => s.items.has(k) && !s.round.results.get(k) && s.items.get(k).status !== "mastered");
   s.queue = [...shuffled(missed), ...s.queue];
   s.phase = s.queue.length ? "summary" : "done";
 }
@@ -590,8 +752,9 @@ function reconcileLearn() {
     for (const t of state.terms) {
       const k = cardKey(t);
       if (isSelected(t.category) && !s.items.has(k)) {
-        s.items.set(k, { t, status: "new", misses: 0, firstTry: null });
-        s.queue.push(k);
+        const rec = progress.terms.get(k); // e.g. a card whose text was just edited
+        s.items.set(k, { t, status: rec?.status || "new", misses: rec?.misses || 0, firstTry: rec?.firstTry ?? null });
+        if (rec?.status !== "mastered") s.queue.push(k);
       }
     }
   }
@@ -609,6 +772,41 @@ function reconcileLearn() {
     }
   }
   if (s.phase === "done" && s.queue.length) s.phase = "summary";
+}
+
+// Progress arrived from the phone: update the running session without interrupting the
+// current question. Returns true if the Learn screen needs redrawing.
+function syncLearnWithProgress() {
+  const s = learn.s;
+  if (!s || s.missedOnly) return false;
+  const inQuestion = ["asking", "correct", "wrong"].includes(s.phase);
+  const busy = inQuestion && s.phase !== "asking" ? s.q.key : null; // just answered here, so ours is newest
+  let changed = false;
+  for (const [k, item] of s.items) {
+    if (k === busy) continue;
+    const rec = progress.terms.get(k);
+    const status = rec?.status || "new";
+    if (status === item.status && (rec?.misses || 0) === item.misses) continue;
+    Object.assign(item, { status, misses: rec?.misses || 0, firstTry: rec?.firstTry ?? null });
+    changed = true;
+  }
+  if (!changed) return false;
+  const r = s.round;
+  const from = r ? (inQuestion ? r.idx + 1 : r.keys.length) : 0;
+  const notMastered = (k) => s.items.get(k).status !== "mastered";
+  // Mastered elsewhere: don't ask again. Reset elsewhere: ask again at the end.
+  s.queue = s.queue.filter(notMastered);
+  if (r) r.keys = [...r.keys.slice(0, from), ...r.keys.slice(from).filter(notMastered)];
+  const scheduled = new Set([...s.queue, ...(r ? r.keys.slice(from) : [])]);
+  if (inQuestion) {
+    scheduled.add(s.q.key);
+    for (const k of r.keys.slice(0, r.idx)) if (!r.results.get(k)) scheduled.add(k); // endRound requeues these
+  }
+  for (const [k, item] of s.items) if (item.status !== "mastered" && !scheduled.has(k)) s.queue.push(k);
+  const phase = s.phase;
+  if (phase === "summary" && !s.queue.length) s.phase = "done";
+  if (phase === "done" && s.queue.length) startRound();
+  return s.phase !== phase || phase === "summary";
 }
 
 function accentButtons(getInput) {
@@ -668,7 +866,18 @@ function renderLearnProgress() {
     el("span", { class: "stat" }, el("i", { class: "dot-learning" }), `${learning} still learning`),
     el("span", { class: "stat" }, el("i", { class: "dot-new" }), `${fresh} not studied`),
     s.round && s.phase !== "done" ? el("span", { class: "stat round" }, `Round ${s.round.n}`) : null,
+    progressSyncStat(),
   ] : []).filter(Boolean));
+}
+
+function progressSyncStat() {
+  const st = progress.sync;
+  if (!st) return null;
+  const [text, cls] = !st.enabled ? ["Progress saved on this computer only", "warn"]
+    : Object.keys(progress.pending).length || st.state === "syncing" ? ["Saving progress…", ""]
+    : st.state === "error" ? ["Progress not synced yet", "warn"]
+    : ["Progress synced with iPhone", ""];
+  return el("span", { class: "stat sync " + cls, title: st.message || "" }, text);
 }
 
 function renderLearn({ keepRetype = null } = {}) {
@@ -703,7 +912,9 @@ function renderLearn({ keepRetype = null } = {}) {
       el("div", { class: "answer-row" }, input, el("button", { class: "btn primary", type: "button", onclick: submit }, "Answer")),
       s.q.answerSide === "term" ? accentButtons(() => input) : null,
       el("div", { class: "learn-foot" },
-        el("button", { class: "link", type: "button", onclick: giveUp }, "Don't know?"))));
+        el("button", { class: "link", type: "button", onclick: giveUp }, "Don't know?"),
+        canSkip() ? el("button", { class: "link", type: "button", onclick: skipQuestion, title: "Move this term to the end" }, "Skip") : null,
+        undoSkipButton())));
     focus = input;
   } else if (s.phase === "correct") {
     const cont = el("button", { class: "btn primary", type: "button", onclick: nextQuestion }, "Continue");
@@ -757,13 +968,13 @@ function renderLearn({ keepRetype = null } = {}) {
       el("p", { class: "summary-title" }, `Round ${r.n} done — ${right} of ${r.keys.length} correct`),
       el("p", { class: "muted" }, `You've mastered ${mastered} of ${total} terms. Keep going!`),
       roundList(r.keys.map((k) => ({ item: s.items.get(k), ok: !!r.results.get(k) }))),
-      el("div", { class: "learn-foot end" }, el("span", { class: "muted small" }, "Press Enter to continue"), cont)));
+      el("div", { class: "learn-foot end" }, el("span", { class: "muted small" }, "Press Enter to continue"), undoSkipButton(), cont)));
     focus = cont;
   } else if (s.phase === "done") {
     const items = [...s.items.values()];
     const firstTry = items.filter((i) => i.firstTry).length;
     const missed = items.filter((i) => i.misses > 0).sort((a, b) => b.misses - a.misses);
-    const again = el("button", { class: "btn primary", type: "button", onclick: () => { resetLearn(); renderLearn(); } }, "Learn again");
+    const again = el("button", { class: "btn primary", type: "button", onclick: restartLearn }, "Learn again");
     const practice = missed.length ? el("button", {
       class: "btn", type: "button",
       onclick: () => { learn.s = newSession(missed.map((i) => i.t), { missedOnly: true }); startRound(); renderLearn(); },
@@ -1066,7 +1277,13 @@ function wire() {
     renderLearnToolbar();
     toast(learn.autoAudio ? "Italian will be read aloud automatically." : "Auto-play audio off.", { ms: 1800 });
   });
-  $("#learn-restart-btn").addEventListener("click", () => { resetLearn(); renderLearn(); });
+  $("#learn-restart-btn").addEventListener("click", async () => {
+    const started = state.terms.filter((t) => isSelected(t.category) && (progress.terms.get(cardKey(t))?.status || "new") !== "new").length;
+    if (started && await confirmDialog("Restart Learn?",
+      `This clears your progress on ${started} selected term${started === 1 ? "" : "s"}, here and in the iPhone app.`,
+      [{ label: "Restart", value: "restart", class: "danger-solid" }]) !== "restart") return;
+    restartLearn();
+  });
 
   // ---- manage ----
   $("#add-form").addEventListener("submit", async (e) => {
@@ -1120,11 +1337,16 @@ function wire() {
 
 async function init() {
   wire();
+  await loadProgress();
   setView(["study", "learn", "manage"].includes(state.view) ? state.view : "study");
   try {
     await api("/api/terms");
     saveSelection();
   } catch { /* toast shown */ }
+  // Pick up progress made on the phone.
+  setInterval(() => { if (!document.hidden) loadProgress(); }, 15000);
+  document.addEventListener("visibilitychange", () => { if (!document.hidden) loadProgress({ refresh: true }); });
+  window.addEventListener("focus", () => loadProgress({ refresh: true }));
 }
 
 init();

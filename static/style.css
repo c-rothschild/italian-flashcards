@@ -295,6 +295,9 @@ input:focus-visible, select:focus-visible, button:focus-visible, .card:focus-vis
 .learn-stats { display: flex; flex-wrap: wrap; gap: 6px 18px; font-size: 13px; color: var(--muted); margin-bottom: 16px; min-height: 19px; }
 .learn-stats .stat { display: inline-flex; align-items: center; gap: 6px; }
 .learn-stats .round { margin-left: auto; font-weight: 600; color: var(--text); }
+.learn-stats .sync { margin-left: auto; }
+.learn-stats .round ~ .sync { margin-left: 0; }
+.learn-stats .sync.warn { color: var(--warn); }
 .learn-stats i { width: 9px; height: 9px; border-radius: 50%; display: inline-block; }
 .dot-mastered { background: var(--accent); }
 .dot-learning { background: var(--warn); }

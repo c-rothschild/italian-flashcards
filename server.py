@@ -5,7 +5,9 @@ Serves the web UI from ./static and a small JSON API that reads and writes
 data/terms.csv (columns: term, definition, category). Standard library only.
 
 If the project is a git repo with an "origin" remote, every change to the CSV is
-committed and pushed so the iOS app can download the latest cards.
+committed and pushed so the iOS app can download the latest cards. Learn progress
+(data/progress.json, not committed) is synced with the iOS app through the
+repo's "progress" branch, using your `gh` login.
 
     python3 server.py                # http://127.0.0.1:8000, opens a browser
     python3 server.py --port 9000 --no-browser
@@ -13,13 +15,17 @@ committed and pushed so the iOS app can download the latest cards.
 """
 
 import argparse
+import base64
 import csv
 import json
 import os
+import re
 import subprocess
 import tempfile
 import threading
 import time
+import urllib.error
+import urllib.request
 import webbrowser
 from http import HTTPStatus
 from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
@@ -118,16 +124,306 @@ class GitSync:
             return {"enabled": self.enabled, "state": self.state, "message": self.message, "lastSynced": self.last_synced}
 
 
+# --- Learn progress ---------------------------------------------------------
+#
+# progress.json: {"version": 1, "terms": {"<term>\u0000<definition>": record}} where a
+# record is {"status": "new"|"learning"|"mastered", "misses": int, "firstTry": bool|null,
+# "updated": ms since epoch}. Two copies merge term by term; the newer record wins.
+# The iOS app (ios/ItalianFlashcards/Model/ProgressStore.swift) uses the same format.
+
+STATUSES = ("new", "learning", "mastered")
+
+
+def clean_record(rec):
+    if not isinstance(rec, dict):
+        return None
+    status = rec.get("status")
+    updated = rec.get("updated")
+    if status not in STATUSES or not isinstance(updated, (int, float)) or isinstance(updated, bool):
+        return None
+    misses = rec.get("misses")
+    first = rec.get("firstTry")
+    return {
+        "status": status,
+        "misses": misses if isinstance(misses, int) and not isinstance(misses, bool) and misses >= 0 else 0,
+        "firstTry": first if isinstance(first, bool) else None,
+        "updated": updated,
+    }
+
+
+def merge_progress(into, other):
+    """Copies records from `other` that are newer than the ones in `into`. Returns True if `into` changed."""
+    changed = False
+    for key, rec in (other or {}).items():
+        rec = clean_record(rec)
+        if not isinstance(key, str) or rec is None:
+            continue
+        mine = into.get(key)
+        if mine is None or rec["updated"] > mine["updated"]:
+            into[key] = rec
+            changed = True
+    return changed
+
+
+def write_json_atomic(path, payload):
+    path.parent.mkdir(parents=True, exist_ok=True)
+    fd, tmp = tempfile.mkstemp(dir=path.parent, prefix=".progress-", suffix=".json")
+    try:
+        os.chmod(tmp, 0o644)
+        with os.fdopen(fd, "w", encoding="utf-8") as f:
+            json.dump(payload, f, ensure_ascii=False, indent=1, sort_keys=True)
+            f.write("\n")
+        os.replace(tmp, path)
+    except BaseException:
+        if os.path.exists(tmp):
+            os.unlink(tmp)
+        raise
+
+
+class ProgressSync:
+    """Keeps a local progress file in step with progress.json on the repo's
+    "progress" branch (a branch of its own, so studying doesn't add commits to
+    main). Uses the GitHub API with the token from `gh auth token`."""
+
+    BRANCH = "progress"
+    FILE = "progress.json"
+    PUSH_DELAY = 3.0   # seconds of quiet after an answer before pushing
+    PULL_EVERY = 30.0  # background check for progress made on the phone
+
+    def __init__(self, path, repo_dir, enabled=True):
+        self.path = Path(path)
+        self.lock = threading.Lock()      # guards self.terms and status fields
+        self.net_lock = threading.Lock()  # one GitHub round trip at a time
+        self.terms = {}
+        self.revision = 0                 # bumps whenever self.terms changes
+        self.dirty = False                # local changes not yet on GitHub
+        self.timer = None
+        self.state = "idle"
+        self.message = ""
+        self.last_pull = 0.0
+        self.etag = None
+        self.sha = None
+        self.token = None
+        self.slug = None
+        self._load()
+        self.enabled = enabled and self._setup(repo_dir)
+        if not enabled:
+            self.message = "Progress stays on this computer (--no-sync)."
+
+    # --- local file ---
+
+    def _load(self):
+        try:
+            data = json.loads(self.path.read_text(encoding="utf-8"))
+            merge_progress(self.terms, data.get("terms"))
+            self.dirty = bool(data.get("unsynced"))
+        except (OSError, ValueError, AttributeError):
+            pass
+
+    def _save(self):
+        write_json_atomic(self.path, {"version": 1, "unsynced": self.dirty, "terms": self.terms})
+
+    # --- GitHub plumbing ---
+
+    def _setup(self, repo_dir):
+        if repo_dir is None:
+            self.message = "Progress stays on this computer: no GitHub repo."
+            return False
+        try:
+            url = subprocess.run(["git", "-C", str(repo_dir), "remote", "get-url", "origin"],
+                                 capture_output=True, text=True, timeout=10).stdout.strip()
+            m = re.search(r"github\.com[:/]([^/]+)/([^/]+?)(?:\.git)?/?$", url)
+            if not m:
+                self.message = "Progress stays on this computer: origin isn't on GitHub."
+                return False
+            self.slug = f"{m.group(1)}/{m.group(2)}"
+            self.token = subprocess.run(["gh", "auth", "token"], capture_output=True, text=True, timeout=10).stdout.strip()
+        except (OSError, subprocess.SubprocessError):
+            self.token = None
+        if not self.token:
+            self.message = "Progress stays on this computer: run `gh auth login` to sync it."
+            return False
+        return True
+
+    def _api(self, method, path, body=None, headers=None):
+        req = urllib.request.Request(
+            f"https://api.github.com/repos/{self.slug}/{path}", method=method,
+            data=None if body is None else json.dumps(body).encode("utf-8"),
+            headers={"Authorization": f"Bearer {self.token}", "Accept": "application/vnd.github+json",
+                     "X-GitHub-Api-Version": "2022-11-28", "User-Agent": "italian-flashcards", **(headers or {})})
+        try:
+            with urllib.request.urlopen(req, timeout=20) as res:
+                return res.status, json.loads(res.read() or b"null"), res.headers
+        except urllib.error.HTTPError as e:
+            if e.code == 304:
+                return 304, None, e.headers
+            try:
+                payload = json.loads(e.read() or b"null")
+            except ValueError:
+                payload = None
+            return e.code, payload, e.headers
+
+    def _fetch_remote(self):
+        """Returns (records, changed); records is None when unchanged since the last fetch."""
+        status, data, headers = self._api("GET", f"contents/{self.FILE}?ref={self.BRANCH}",
+                                          headers={"If-None-Match": self.etag} if self.etag else None)
+        if status == 304:
+            return None
+        if status == 404:  # no branch or file yet
+            self.sha, self.etag = None, None
+            self._ensure_branch()
+            return {}
+        if status != 200:
+            raise RuntimeError(f"GitHub said {status}: {(data or {}).get('message', '')}".strip())
+        self.sha = data["sha"]
+        self.etag = headers.get("ETag")
+        content = json.loads(base64.b64decode(data["content"]).decode("utf-8") or "{}")
+        return content.get("terms") or {}
+
+    def _ensure_branch(self):
+        status, _, _ = self._api("GET", f"branches/{self.BRANCH}")
+        if status == 200:
+            return
+        status, repo, _ = self._api("GET", "")
+        base = repo["default_branch"] if status == 200 else "main"
+        status, ref, _ = self._api("GET", f"git/ref/heads/{base}")
+        if status != 200:
+            raise RuntimeError("couldn't read the main branch")
+        status, data, _ = self._api("POST", "git/refs", {"ref": f"refs/heads/{self.BRANCH}", "sha": ref["object"]["sha"]})
+        if status not in (201, 422):  # 422: someone else just created it
+            raise RuntimeError(f"couldn't create the progress branch ({status})")
+
+    def _push(self, terms, mastered):
+        body = {
+            "message": f"Update learn progress ({mastered} mastered)",
+            "branch": self.BRANCH,
+            "content": base64.b64encode(
+                (json.dumps({"version": 1, "terms": terms}, ensure_ascii=False, indent=1, sort_keys=True) + "\n").encode("utf-8")
+            ).decode("ascii"),
+        }
+        if self.sha:
+            body["sha"] = self.sha
+        status, data, _ = self._api("PUT", f"contents/{self.FILE}", body)
+        if status in (409, 422):  # someone (the phone) pushed in between
+            return False
+        if status not in (200, 201):
+            raise RuntimeError(f"GitHub said {status}: {(data or {}).get('message', '')}".strip())
+        self.sha = data["content"]["sha"]
+        self.etag = None
+        return True
+
+    def sync(self, push=True):
+        """Pulls the phone's progress and, if there are local changes, pushes the merged result."""
+        if not self.enabled:
+            return
+        with self.net_lock:
+            with self.lock:
+                self.state = "syncing"
+            try:
+                for _ in range(4):
+                    remote = self._fetch_remote()
+                    with self.lock:
+                        if remote is not None and merge_progress(self.terms, remote):
+                            self.revision += 1
+                        # Anything newer here than on GitHub still needs pushing.
+                        if remote is not None and not self.dirty:
+                            self.dirty = any(k not in remote or (clean_record(remote[k]) or {}).get("updated", -1) < r["updated"]
+                                             for k, r in self.terms.items())
+                        need_push = push and self.dirty
+                        snapshot = dict(self.terms)
+                        self._save()
+                    self.last_pull = time.time()
+                    if not need_push:
+                        break
+                    mastered = sum(1 for r in snapshot.values() if r["status"] == "mastered")
+                    if self._push(snapshot, mastered):
+                        with self.lock:
+                            # Changes made while pushing stay dirty.
+                            self.dirty = any(self.terms.get(k) != r for k, r in snapshot.items()) or len(self.terms) != len(snapshot)
+                            self._save()
+                        if not self.dirty:
+                            break
+                    self.etag = None  # conflict or more changes: fetch again and retry
+                with self.lock:
+                    if self.dirty and push:
+                        self.state = "error"
+                        self.message = "Couldn't push learn progress yet (will retry)."
+                    else:
+                        self.state = "ok"
+                        self.message = "Learn progress synced with GitHub."
+            except (OSError, ValueError, KeyError, RuntimeError) as e:
+                with self.lock:
+                    self.state = "error"
+                    self.message = f"Couldn't sync learn progress (will retry): {e}"
+                print(self.message)
+
+    def schedule_push(self):
+        if not self.enabled:
+            return
+        with self.lock:
+            if self.timer:
+                self.timer.cancel()
+            self.timer = threading.Timer(self.PUSH_DELAY, self.sync)
+            self.timer.daemon = True
+            self.timer.start()
+
+    def run_background(self):
+        if not self.enabled:
+            return
+
+        def loop():
+            while True:
+                self.sync()
+                time.sleep(self.PULL_EVERY)
+        threading.Thread(target=loop, daemon=True).start()
+
+    # --- used by the web app ---
+
+    def snapshot(self):
+        with self.lock:
+            return {"terms": dict(self.terms), "revision": self.revision,
+                    "sync": {"enabled": self.enabled, "state": self.state, "message": self.message}}
+
+    def update(self, records):
+        if not isinstance(records, dict):
+            raise ValueError("Expected an object of progress records.")
+        with self.lock:
+            if merge_progress(self.terms, records):
+                self.revision += 1
+                self.dirty = True
+                self._save()
+        self.schedule_push()
+        return self.snapshot()
+
+    def rename(self, old_key, new_key):
+        """A card's text was edited: carry its progress over to the new text."""
+        with self.lock:
+            rec = self.terms.get(old_key)
+            if rec is None or old_key == new_key:
+                return
+            self.terms[new_key] = dict(rec, updated=max(rec["updated"], time.time() * 1000))
+            self.revision += 1
+            self.dirty = True
+            self._save()
+        self.schedule_push()
+
+    def refresh(self, max_age=5.0):
+        """Pull now unless we did so in the last few seconds (used when the page regains focus)."""
+        if self.enabled and time.time() - self.last_pull > max_age:
+            self.sync()
+
+
 class TermStore:
     """CSV-backed term list. Rows are addressed by index; every mutation
     carries the term/definition the client expects at that index, so a
     stale client (e.g. after the CSV was edited by hand) gets a conflict
     instead of silently changing the wrong row."""
 
-    def __init__(self, path, on_change=None):
+    def __init__(self, path, on_change=None, on_rename=None):
         self.path = Path(path)
         self.lock = threading.Lock()
         self.on_change = on_change
+        self.on_rename = on_rename  # (old_key, new_key) when a card's text changes
 
     # --- file I/O -------------------------------------------------------
 
@@ -242,9 +538,13 @@ class TermStore:
                     if field in it:
                         new[field] = self._clean(it[field], label, required=req)
                 changes.append((i, new))
+            renamed = [(rows[i], new) for i, new in changes]
             for i, new in changes:
                 rows[i] = new
             self._write(rows)
+            if self.on_rename:
+                for old, new in renamed:
+                    self.on_rename(old["term"] + "\0" + old["definition"], new["term"] + "\0" + new["definition"])
             return self.snapshot(rows)
 
     def delete(self, items):
@@ -280,7 +580,7 @@ class TermStore:
             return self.snapshot(rows)
 
 
-def make_handler(store, sync):
+def make_handler(store, sync, progress):
     class Handler(SimpleHTTPRequestHandler):
         def __init__(self, *args, **kwargs):
             super().__init__(*args, directory=str(STATIC_DIR), **kwargs)
@@ -308,6 +608,10 @@ def make_handler(store, sync):
                 return self._json(HTTPStatus.OK, store.get())
             if route == "/api/sync-status":
                 return self._json(HTTPStatus.OK, sync.status())
+            if route == "/api/progress":
+                if "refresh=1" in self.path:
+                    progress.refresh()
+                return self._json(HTTPStatus.OK, progress.snapshot())
             if self.path.startswith("/api/"):
                 return self._json(HTTPStatus.NOT_FOUND, {"error": "Not found"})
             return super().do_GET()
@@ -329,6 +633,8 @@ def make_handler(store, sync):
                     result = store.rename_category(data.get("from"), data.get("to"))
                 elif route == "/api/categories/delete":
                     result = store.delete_category(data.get("name"), bool(data.get("deleteTerms")))
+                elif route == "/api/progress":
+                    result = progress.update(data.get("terms"))
                 else:
                     return self._json(HTTPStatus.NOT_FOUND, {"error": "Not found"})
             except ConflictError as e:
@@ -346,18 +652,22 @@ def main():
     p.add_argument("--host", default="127.0.0.1")
     p.add_argument("--data", default=str(APP_DIR / "data" / "terms.csv"), help="path to the terms CSV")
     p.add_argument("--no-browser", action="store_true", help="don't open a browser tab")
-    p.add_argument("--no-sync", action="store_true", help="don't commit/push changes to GitHub")
+    p.add_argument("--no-sync", action="store_true", help="don't commit/push changes or sync progress with GitHub")
     args = p.parse_args()
 
     sync = GitSync(args.data)
     if args.no_sync:
         sync.enabled = False
         sync.message = "Not syncing (--no-sync)."
-    store = TermStore(args.data, on_change=sync.schedule)
-    server = ThreadingHTTPServer((args.host, args.port), make_handler(store, sync))
+    data_path = Path(args.data).resolve()
+    progress = ProgressSync(data_path.parent / "progress.json", sync.repo, enabled=not args.no_sync)
+    store = TermStore(args.data, on_change=sync.schedule, on_rename=progress.rename)
+    server = ThreadingHTTPServer((args.host, args.port), make_handler(store, sync, progress))
     url = f"http://{args.host}:{args.port}/"
     print(f"Italian flashcards running at {url}  (data: {store.path})")
     print("GitHub sync: on (changes are pushed automatically)" if sync.enabled else sync.message)
+    print("Learn progress: synced with the iOS app" if progress.enabled else progress.message)
+    progress.run_background()
     if sync.enabled:
         # Push edits made while the server was off (or a push that failed last time).
         threading.Thread(target=sync.sync, daemon=True).start()

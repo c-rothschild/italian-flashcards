@@ -4,6 +4,7 @@ struct LearnView: View {
     @Environment(TermRepository.self) private var repository
     @Environment(CategorySelection.self) private var selection
     @Environment(Speaker.self) private var speaker
+    @Environment(ProgressStore.self) private var progress
     @AppStorage("learn.answerWith") private var answerMode: AnswerMode = .term
     @AppStorage("learn.autoAudio") private var autoAudio = false
     @State private var session: LearnSession?
@@ -11,6 +12,9 @@ struct LearnView: View {
     @State private var retypeError = false
     @State private var shakes = 0
     @State private var autoAdvance: Task<Void, Never>?
+    @State private var skippedNotice: String?
+    @State private var noticeTask: Task<Void, Never>?
+    @State private var confirmRestart = false
     @FocusState private var fieldFocused: Bool
     let openCategories: () -> Void
 
@@ -24,6 +28,22 @@ struct LearnView: View {
                     ScrollView {
                         VStack(alignment: .leading, spacing: 16) {
                             ProgressHeader(session: session)
+                            // Above the card so the keyboard never covers Undo.
+                            let canUndo = session.phase == .asking && session.lastSkipped != nil
+                            if skippedNotice != nil || canUndo {
+                                HStack(alignment: .firstTextBaseline) {
+                                    if let skippedNotice {
+                                        Label(skippedNotice, systemImage: "forward.end")
+                                            .foregroundStyle(.secondary)
+                                            .transition(.opacity)
+                                    }
+                                    Spacer(minLength: 8)
+                                    if canUndo {
+                                        undoSkipButton(session).fontWeight(.semibold)
+                                    }
+                                }
+                                .font(.footnote)
+                            }
                             switch session.phase {
                             case .asking, .correct, .wrong: questionCard(session)
                             case .summary: summaryCard(session)
@@ -57,7 +77,7 @@ struct LearnView: View {
                             ForEach(AnswerMode.allCases) { Text("Answer in \($0.label)").tag($0) }
                         }
                         Toggle("Auto-play audio", systemImage: "speaker.wave.2", isOn: $autoAudio)
-                        Button("Start over", systemImage: "arrow.counterclockwise") { startNew() }
+                        Button("Start over", systemImage: "arrow.counterclockwise") { startOverTapped() }
                     } label: {
                         Image(systemName: "ellipsis.circle")
                     }
@@ -65,12 +85,23 @@ struct LearnView: View {
                 }
             }
         }
+        .confirmationDialog("Start over?", isPresented: $confirmRestart, titleVisibility: .visible) {
+            Button("Start Over", role: .destructive) { restart() }
+        } message: {
+            let n = startedCount
+            Text("This clears your progress on \(n) selected term\(n == 1 ? "" : "s"), here and on the website.")
+        }
         .onAppear { if session == nil { startNew() } }
+        .onChange(of: progress.remoteRevision) {
+            // Progress made on the website.
+            guard let session else { return }
+            if session.apply(progress: progress.records) { afterAdvance() }
+        }
         .onChange(of: selection.deselected) { startNew() }
         .onChange(of: repository.terms) {
             guard let session else { startNew(); return }
             let wasAsking = session.question?.id
-            session.reconcile(with: repository.terms, isSelected: selection.isSelected)
+            session.reconcile(with: repository.terms, isSelected: selection.isSelected, progress: progress.records)
             if session.isEmpty { startNew() } else if session.question?.id != wasAsking { afterAdvance() }
         }
         .onChange(of: answerMode) {
@@ -146,6 +177,11 @@ struct LearnView: View {
                     switch s.phase {
                     case .asking:
                         Button("Don't know?") { giveUp(s) }
+                        if s.canSkip {
+                            Button("Skip") { skip(s) }
+                                .padding(.leading, 12)
+                                .accessibilityHint("Moves this term to the end")
+                        }
                         Spacer()
                         Button("Answer") { submitPressed(s) }.buttonStyle(.borderedProminent)
                     case .wrong:
@@ -229,6 +265,9 @@ struct LearnView: View {
             Text("You've mastered \(s.masteredCount) of \(s.total) terms. Keep going!")
                 .foregroundStyle(.secondary)
             ResultList(rows: results.map { ($0.item, $0.correct, nil) })
+            if s.lastSkipped != nil {
+                undoSkipButton(s).frame(maxWidth: .infinity)
+            }
             Button {
                 s.continueAfterSummary()
                 afterAdvance()
@@ -240,6 +279,11 @@ struct LearnView: View {
         }
         .padding(20)
         .background(Color(.secondarySystemGroupedBackground), in: RoundedRectangle(cornerRadius: 20, style: .continuous))
+    }
+
+    private func undoSkipButton(_ s: LearnSession) -> some View {
+        Button("Undo last skip") { undoSkip(s) }
+            .accessibilityHint(s.lastSkipped.map { "Brings back \($0.term.term) now" } ?? "")
     }
 
     private func doneCard(_ s: LearnSession) -> some View {
@@ -257,6 +301,7 @@ struct LearnView: View {
                 ResultList(rows: missed.prefix(12).map { ($0, false, "missed \($0.misses)×") })
                 Button {
                     session = LearnSession(terms: missed.map(\.term), answerMode: answerMode, missedOnly: true)
+                    session?.onRecord = record
                     afterAdvance()
                 } label: {
                     Text("Practice the \(missed.count) I missed").frame(maxWidth: .infinity)
@@ -265,7 +310,7 @@ struct LearnView: View {
                 .controlSize(.large)
             }
             Button {
-                startNew()
+                restart()
             } label: {
                 Text("Learn again").frame(maxWidth: .infinity)
             }
@@ -278,11 +323,32 @@ struct LearnView: View {
 
     // MARK: actions
 
+    /// A new session that picks up the saved progress on the selected categories.
     private func startNew() {
         autoAdvance?.cancel()
         let pool = selection.pool(from: repository.terms)
-        session = pool.isEmpty ? nil : LearnSession(terms: pool, answerMode: answerMode)
+        session = pool.isEmpty ? nil : LearnSession(terms: pool, answerMode: answerMode, progress: progress.records)
+        session?.onRecord = record
         afterAdvance()
+    }
+
+    private func record(_ key: String, _ item: LearnSession.Item) {
+        progress.save(key, status: item.status, misses: item.misses, firstTry: item.firstTry)
+    }
+
+    /// Selected terms with any progress (what Start over would clear).
+    private var startedCount: Int {
+        selection.pool(from: repository.terms).filter { (progress.records[$0.id]?.status ?? .new) != .new }.count
+    }
+
+    private func startOverTapped() {
+        if startedCount > 0 { confirmRestart = true } else { startNew() }
+    }
+
+    /// Start over / Learn again: forget the progress on the selected terms everywhere.
+    private func restart() {
+        progress.reset(selection.pool(from: repository.terms).map(\.id))
+        startNew()
     }
 
     private func submitPressed(_ s: LearnSession) {
@@ -309,6 +375,27 @@ struct LearnView: View {
         default:
             break
         }
+    }
+
+    private func skip(_ s: LearnSession) {
+        guard let q = s.question, let item = s.currentItem else { return }
+        let shown = q.answerSide.opposite.text(of: item.term) // the prompt, so the answer isn't revealed
+        s.skip()
+        afterAdvance()
+        withAnimation { skippedNotice = "Skipped “\(shown)”. It'll come back at the end." }
+        noticeTask?.cancel()
+        noticeTask = Task {
+            try? await Task.sleep(for: .seconds(2.5))
+            guard !Task.isCancelled else { return }
+            withAnimation { skippedNotice = nil }
+        }
+    }
+
+    private func undoSkip(_ s: LearnSession) {
+        s.undoSkip()
+        afterAdvance()
+        noticeTask?.cancel()
+        withAnimation { skippedNotice = nil }
     }
 
     private func giveUp(_ s: LearnSession) {

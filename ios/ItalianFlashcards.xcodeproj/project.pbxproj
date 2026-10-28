@@ -11,7 +11,9 @@
 		0E7A132F3BAC8E7C1A40A269 /* StudyFlowUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74D06C12506245F46D10CF4B /* StudyFlowUITests.swift */; };
 		0F2221F851A3F9BF09731D42 /* Term.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F33258282F02EFC8947EEDB /* Term.swift */; };
 		316D2646D8217677F3452D12 /* AnswerGrader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6B10A046713E9A99F2DC803 /* AnswerGrader.swift */; };
+		38D6F23543572D3154F6A7C1 /* ProgressStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBE1C644CB948101BECB71CA /* ProgressStore.swift */; };
 		5BC5B1D84C4EBE257D3E29EA /* TermRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = A75DD0CE94DB1B8CC8001903 /* TermRepository.swift */; };
+		8D88307C8B0586C63624EFBA /* ProgressStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F172F8A6A53FE4F9091A7181 /* ProgressStoreTests.swift */; };
 		8F30573708C85870ED8C23E6 /* ItalianFlashcardsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0C019F669BE9E403D00479 /* ItalianFlashcardsApp.swift */; };
 		9C0B0A585FDC11F49D76B701 /* LearnSessionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E33A44FF4D450AEB33ADCF9 /* LearnSessionTests.swift */; };
 		9FCBE9CD2D57218B49B1F042 /* CategoriesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8AB6A43CE09348E1AC872DA /* CategoriesView.swift */; };
@@ -57,9 +59,11 @@
 		D6B10A046713E9A99F2DC803 /* AnswerGrader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswerGrader.swift; sourceTree = "<group>"; };
 		DB06DAC1EBDC3BC637657D27 /* ItalianFlashcards.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = ItalianFlashcards.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E018823C6A6570D9D887AD17 /* terms.csv */ = {isa = PBXFileReference; path = terms.csv; sourceTree = "<group>"; };
+		F172F8A6A53FE4F9091A7181 /* ProgressStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressStoreTests.swift; sourceTree = "<group>"; };
 		F5D744BC46E27B791D8CF6DC /* FlashcardsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlashcardsView.swift; sourceTree = "<group>"; };
 		F8AB6A43CE09348E1AC872DA /* CategoriesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesView.swift; sourceTree = "<group>"; };
 		FA0C019F669BE9E403D00479 /* ItalianFlashcardsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItalianFlashcardsApp.swift; sourceTree = "<group>"; };
+		FBE1C644CB948101BECB71CA /* ProgressStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressStore.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
@@ -146,6 +150,7 @@
 			children = (
 				C2EF4506468F01CF2E5DD300 /* AnswerGraderTests.swift */,
 				6E33A44FF4D450AEB33ADCF9 /* LearnSessionTests.swift */,
+				F172F8A6A53FE4F9091A7181 /* ProgressStoreTests.swift */,
 				2CD0D7B3FE5022509C704738 /* TermRepositoryTests.swift */,
 			);
 			path = ItalianFlashcardsTests;
@@ -154,6 +159,7 @@
 		E4B81A4F4CF0A3090C04FFA4 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				FBE1C644CB948101BECB71CA /* ProgressStore.swift */,
 				1F33258282F02EFC8947EEDB /* Term.swift */,
 				A75DD0CE94DB1B8CC8001903 /* TermRepository.swift */,
 			);
@@ -232,9 +238,10 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
-				LastUpgradeCheck = 1430;
+				LastUpgradeCheck = 2710;
 				TargetAttributes = {
 					6339C899740CD72D48652299 = {
+						DevelopmentTeam = 3CNY6C5MX4;
 						ProvisioningStyle = Automatic;
 					};
 					C9D88D1085D6768AF5CB980D = {
@@ -282,6 +289,7 @@
 			files = (
 				E9541A562DB1179DB0A51F3C /* AnswerGraderTests.swift in Sources */,
 				9C0B0A585FDC11F49D76B701 /* LearnSessionTests.swift in Sources */,
+				8D88307C8B0586C63624EFBA /* ProgressStoreTests.swift in Sources */,
 				BA436A0725BF7629A92B95F4 /* TermRepositoryTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -296,6 +304,7 @@
 				8F30573708C85870ED8C23E6 /* ItalianFlashcardsApp.swift in Sources */,
 				C2B1EF686B8AE1CE9D006EB7 /* LearnSession.swift in Sources */,
 				D1B5D9DF3C057505EF20A1F2 /* LearnView.swift in Sources */,
+				38D6F23543572D3154F6A7C1 /* ProgressStore.swift in Sources */,
 				A9CBCAAC891CBC0454C66019 /* Speaker.swift in Sources */,
 				0F2221F851A3F9BF09731D42 /* Term.swift in Sources */,
 				5BC5B1D84C4EBE257D3E29EA /* TermRepository.swift in Sources */,
@@ -384,6 +393,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 3CNY6C5MX4;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = Italiano;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -455,6 +465,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -476,6 +487,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -520,6 +532,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -534,6 +547,7 @@
 				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				SWIFT_VERSION = 5.0;
@@ -547,6 +561,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 3CNY6C5MX4;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = Italiano;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
