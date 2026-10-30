@@ -1,5 +1,11 @@
 {
  "terms": {
+  "andare\u0000to go (irregular -are verb)": {
+   "firstTry": true,
+   "misses": 0,
+   "status": "mastered",
+   "updated": 1793320744870
+  },
   "aprire\u0000to open": {
    "firstTry": false,
    "misses": 2,
