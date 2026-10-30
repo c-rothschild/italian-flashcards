@@ -62,9 +62,9 @@
   },
   "chiudere\u0000to close": {
    "firstTry": false,
-   "misses": 2,
+   "misses": 3,
    "status": "learning",
-   "updated": 1793328393872
+   "updated": 1793328530672
   },
   "comprare\u0000to buy": {
    "firstTry": true,
