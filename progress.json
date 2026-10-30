@@ -42,6 +42,12 @@
    "status": "learning",
    "updated": 1793320270165
   },
+  "loro capiscono\u0000they understand": {
+   "firstTry": false,
+   "misses": 1,
+   "status": "learning",
+   "updated": 1793320560695
+  },
   "lui/lei dorme\u0000he/she sleeps (also formal you)": {
    "firstTry": true,
    "misses": 0,
