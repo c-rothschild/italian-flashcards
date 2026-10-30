@@ -422,9 +422,9 @@
   },
   "voi dite\u0000you all say": {
    "firstTry": false,
-   "misses": 1,
+   "misses": 2,
    "status": "learning",
-   "updated": 1793328483488
+   "updated": 1793328501314
   },
   "voi dovete\u0000you all have to": {
    "firstTry": true,
