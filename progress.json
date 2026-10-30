@@ -24,6 +24,12 @@
    "status": "mastered",
    "updated": 1793320382196
   },
+  "cambiare\u0000to change": {
+   "firstTry": true,
+   "misses": 0,
+   "status": "mastered",
+   "updated": 1793320703456
+  },
   "camminare\u0000to walk": {
    "firstTry": false,
    "misses": 1,
