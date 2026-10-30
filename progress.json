@@ -276,6 +276,12 @@
    "status": "mastered",
    "updated": 1793328288171
   },
+  "loro dormono\u0000they sleep": {
+   "firstTry": false,
+   "misses": 1,
+   "status": "learning",
+   "updated": 1793329106823
+  },
   "loro escono\u0000they go out": {
    "firstTry": false,
    "misses": 1,
