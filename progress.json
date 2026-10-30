@@ -126,6 +126,12 @@
    "status": "mastered",
    "updated": 1793321029052
   },
+  "io dico\u0000I say": {
+   "firstTry": false,
+   "misses": 1,
+   "status": "learning",
+   "updated": 1793328600038
+  },
   "io dormo\u0000I sleep": {
    "firstTry": true,
    "misses": 0,
