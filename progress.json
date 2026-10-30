@@ -1,5 +1,11 @@
 {
  "terms": {
+  "aprire\u0000to open": {
+   "firstTry": false,
+   "misses": 1,
+   "status": "learning",
+   "updated": 1793320568025
+  },
   "arrivare\u0000to arrive": {
    "firstTry": false,
    "misses": 1,
