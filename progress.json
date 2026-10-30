@@ -78,6 +78,12 @@
    "status": "mastered",
    "updated": 1793321123736
   },
+  "contare\u0000to count": {
+   "firstTry": true,
+   "misses": 0,
+   "status": "mastered",
+   "updated": 1793328719889
+  },
   "correre\u0000to run": {
    "firstTry": false,
    "misses": 1,
