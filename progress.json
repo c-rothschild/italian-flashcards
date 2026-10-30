@@ -228,6 +228,12 @@
    "status": "mastered",
    "updated": 1793320370787
   },
+  "viaggiare\u0000to travel": {
+   "firstTry": false,
+   "misses": 1,
+   "status": "learning",
+   "updated": 1793320814097
+  },
   "visitare\u0000to visit": {
    "firstTry": true,
    "misses": 0,
