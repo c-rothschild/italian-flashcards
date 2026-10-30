@@ -120,6 +120,12 @@
    "status": "mastered",
    "updated": 1793320648937
   },
+  "io sto\u0000I stay; I am (how)": {
+   "firstTry": false,
+   "misses": 1,
+   "status": "learning",
+   "updated": 1793321070321
+  },
   "io vado\u0000I go": {
    "firstTry": false,
    "misses": 1,
