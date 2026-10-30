@@ -134,9 +134,9 @@
   },
   "lui/lei esce\u0000he/she goes out (also formal you)": {
    "firstTry": false,
-   "misses": 2,
+   "misses": 3,
    "status": "learning",
-   "updated": 1793320896645
+   "updated": 1793320959220
   },
   "lui/lei va\u0000he/she goes (also formal you)": {
    "firstTry": true,
