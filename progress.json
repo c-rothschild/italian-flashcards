@@ -72,6 +72,12 @@
    "status": "mastered",
    "updated": 1793321008871
   },
+  "chiedere\u0000to ask": {
+   "firstTry": false,
+   "misses": 1,
+   "status": "learning",
+   "updated": 1793328890907
+  },
   "chiudere\u0000to close": {
    "firstTry": false,
    "misses": 3,
