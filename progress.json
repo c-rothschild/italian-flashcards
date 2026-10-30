@@ -96,6 +96,12 @@
    "status": "mastered",
    "updated": 1793320934503
   },
+  "dormire\u0000to sleep": {
+   "firstTry": true,
+   "misses": 0,
+   "status": "mastered",
+   "updated": 1793328647988
+  },
   "dovere\u0000to have to, must (irregular)": {
    "firstTry": false,
    "misses": 1,
