@@ -270,6 +270,12 @@
    "status": "mastered",
    "updated": 1793328510555
   },
+  "loro finiscono\u0000they finish": {
+   "firstTry": false,
+   "misses": 1,
+   "status": "learning",
+   "updated": 1793329015462
+  },
   "loro stanno\u0000they stay; they are": {
    "firstTry": true,
    "misses": 0,
