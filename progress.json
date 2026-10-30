@@ -1,5 +1,17 @@
 {
  "terms": {
+  "comprare\u0000to buy": {
+   "firstTry": true,
+   "misses": 0,
+   "status": "mastered",
+   "updated": 1793320268121
+  },
+  "la discoteca\u0000nightclub, disco": {
+   "firstTry": false,
+   "misses": 1,
+   "status": "learning",
+   "updated": 1793320270165
+  },
   "pulire\u0000to clean (-isc)": {
    "firstTry": true,
    "misses": 0,
