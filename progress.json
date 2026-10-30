@@ -1,5 +1,11 @@
 {
  "terms": {
+  "aspettare\u0000to wait (for)": {
+   "firstTry": false,
+   "misses": 1,
+   "status": "learning",
+   "updated": 1793320310802
+  },
   "camminare\u0000to walk": {
    "firstTry": false,
    "misses": 1,
