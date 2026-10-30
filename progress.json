@@ -60,6 +60,12 @@
    "status": "learning",
    "updated": 1793320270165
   },
+  "loro bevono\u0000they drink": {
+   "firstTry": true,
+   "misses": 0,
+   "status": "mastered",
+   "updated": 1793320677786
+  },
   "loro capiscono\u0000they understand": {
    "firstTry": false,
    "misses": 1,
