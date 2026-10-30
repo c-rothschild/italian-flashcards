@@ -539,6 +539,12 @@
    "misses": 1,
    "status": "mastered",
    "updated": 1793320478236
+  },
+  "voi venite\u0000you all come": {
+   "firstTry": true,
+   "misses": 0,
+   "status": "mastered",
+   "updated": 1793328780021
   }
  },
  "version": 1
