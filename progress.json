@@ -1,5 +1,11 @@
 {
  "terms": {
+  "arrivare\u0000to arrive": {
+   "firstTry": false,
+   "misses": 1,
+   "status": "learning",
+   "updated": 1793320323837
+  },
   "aspettare\u0000to wait (for)": {
    "firstTry": false,
    "misses": 1,
