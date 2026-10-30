@@ -1,4 +1,11 @@
 {
- "terms": {},
+ "terms": {
+  "pulire\u0000to clean (-isc)": {
+   "firstTry": true,
+   "misses": 0,
+   "status": "mastered",
+   "updated": 1793320259339
+  }
+ },
  "version": 1
 }
