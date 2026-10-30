@@ -96,6 +96,12 @@
    "status": "mastered",
    "updated": 1793320648937
   },
+  "io vado\u0000I go": {
+   "firstTry": false,
+   "misses": 1,
+   "status": "learning",
+   "updated": 1793320949171
+  },
   "io vengo\u0000I come": {
    "firstTry": true,
    "misses": 0,
