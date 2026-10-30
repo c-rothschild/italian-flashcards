@@ -408,6 +408,12 @@
    "status": "mastered",
    "updated": 1793328944704
   },
+  "noi usciamo\u0000we go out": {
+   "firstTry": false,
+   "misses": 1,
+   "status": "learning",
+   "updated": 1793329034711
+  },
   "noi veniamo\u0000we come": {
    "firstTry": false,
    "misses": 1,
