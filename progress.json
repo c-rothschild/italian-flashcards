@@ -534,6 +534,12 @@
    "status": "mastered",
    "updated": 1793320684370
   },
+  "tu dormi\u0000you sleep (informal)": {
+   "firstTry": true,
+   "misses": 0,
+   "status": "mastered",
+   "updated": 1793329024140
+  },
   "tu esci\u0000you go out (informal)": {
    "firstTry": false,
    "misses": 2,
