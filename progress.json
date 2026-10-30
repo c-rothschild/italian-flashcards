@@ -168,6 +168,12 @@
    "status": "mastered",
    "updated": 1793320605736
   },
+  "partire\u0000to leave, to depart": {
+   "firstTry": false,
+   "misses": 1,
+   "status": "learning",
+   "updated": 1793320868854
+  },
   "pranzare\u0000to have lunch": {
    "firstTry": false,
    "misses": 2,
