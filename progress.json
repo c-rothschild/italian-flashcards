@@ -156,6 +156,12 @@
    "status": "mastered",
    "updated": 1793320824453
   },
+  "imparare\u0000to learn": {
+   "firstTry": false,
+   "misses": 1,
+   "status": "learning",
+   "updated": 1793328906324
+  },
   "incontrare\u0000to meet": {
    "firstTry": false,
    "misses": 1,
