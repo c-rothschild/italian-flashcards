@@ -60,6 +60,12 @@
    "status": "mastered",
    "updated": 1793321008871
   },
+  "chiudere\u0000to close": {
+   "firstTry": false,
+   "misses": 1,
+   "status": "learning",
+   "updated": 1793328329871
+  },
   "comprare\u0000to buy": {
    "firstTry": true,
    "misses": 0,
