@@ -357,8 +357,8 @@
   "pensare\u0000to think": {
    "firstTry": false,
    "misses": 1,
-   "status": "learning",
-   "updated": 1793328817654
+   "status": "mastered",
+   "updated": 1793328829337
   },
   "pranzare\u0000to have lunch": {
    "firstTry": false,
@@ -519,8 +519,8 @@
   "voi andate\u0000you all go": {
    "firstTry": false,
    "misses": 2,
-   "status": "learning",
-   "updated": 1793328749076
+   "status": "mastered",
+   "updated": 1793328825454
   },
   "voi bevete\u0000you all drink": {
    "firstTry": false,
