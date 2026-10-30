@@ -420,6 +420,12 @@
    "status": "mastered",
    "updated": 1793321061054
   },
+  "voi dite\u0000you all say": {
+   "firstTry": false,
+   "misses": 1,
+   "status": "learning",
+   "updated": 1793328483488
+  },
   "voi dovete\u0000you all have to": {
    "firstTry": true,
    "misses": 0,
