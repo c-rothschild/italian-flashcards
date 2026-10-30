@@ -378,6 +378,12 @@
    "status": "mastered",
    "updated": 1793320993119
   },
+  "noi stiamo\u0000we stay; we are": {
+   "firstTry": false,
+   "misses": 1,
+   "status": "learning",
+   "updated": 1793328915964
+  },
   "noi veniamo\u0000we come": {
    "firstTry": false,
    "misses": 1,
