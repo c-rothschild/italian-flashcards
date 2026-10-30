@@ -42,6 +42,12 @@
    "status": "mastered",
    "updated": 1793320377086
   },
+  "capire\u0000to understand (-isc)": {
+   "firstTry": false,
+   "misses": 1,
+   "status": "learning",
+   "updated": 1793320759782
+  },
   "comprare\u0000to buy": {
    "firstTry": true,
    "misses": 0,
