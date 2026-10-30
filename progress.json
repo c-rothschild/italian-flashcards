@@ -96,6 +96,12 @@
    "status": "mastered",
    "updated": 1793320934503
   },
+  "domandare\u0000to ask": {
+   "firstTry": false,
+   "misses": 1,
+   "status": "learning",
+   "updated": 1793328659188
+  },
   "dormire\u0000to sleep": {
    "firstTry": true,
    "misses": 0,
