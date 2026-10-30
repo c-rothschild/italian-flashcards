@@ -83,6 +83,12 @@
    "misses": 1,
    "status": "mastered",
    "updated": 1793320374387
+  },
+  "voi uscite\u0000you all go out": {
+   "firstTry": false,
+   "misses": 1,
+   "status": "learning",
+   "updated": 1793320437020
   }
  },
  "version": 1
