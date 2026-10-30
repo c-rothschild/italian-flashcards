@@ -462,6 +462,12 @@
    "status": "mastered",
    "updated": 1793321143611
   },
+  "voi finite\u0000you all finish (no -isc)": {
+   "firstTry": true,
+   "misses": 0,
+   "status": "mastered",
+   "updated": 1793328614972
+  },
   "voi state\u0000you all stay; you all are": {
    "firstTry": false,
    "misses": 1,
