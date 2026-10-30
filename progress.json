@@ -318,6 +318,12 @@
    "status": "mastered",
    "updated": 1793320660253
   },
+  "voi capite\u0000you all understand (no -isc)": {
+   "firstTry": false,
+   "misses": 1,
+   "status": "learning",
+   "updated": 1793321037519
+  },
   "voi state\u0000you all stay; you all are": {
    "firstTry": false,
    "misses": 1,
