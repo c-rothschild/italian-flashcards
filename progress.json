@@ -54,6 +54,12 @@
    "status": "mastered",
    "updated": 1793320268121
   },
+  "correre\u0000to run": {
+   "firstTry": false,
+   "misses": 1,
+   "status": "learning",
+   "updated": 1793320763986
+  },
   "cucinare\u0000to cook": {
    "firstTry": true,
    "misses": 0,
