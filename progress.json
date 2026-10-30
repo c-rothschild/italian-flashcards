@@ -132,6 +132,12 @@
    "status": "mastered",
    "updated": 1793320774518
   },
+  "finire\u0000to finish (-isc)": {
+   "firstTry": false,
+   "misses": 1,
+   "status": "learning",
+   "updated": 1793328865655
+  },
   "funzionare\u0000to work, to function (machines)": {
    "firstTry": true,
    "misses": 0,
