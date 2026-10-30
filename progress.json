@@ -30,6 +30,12 @@
    "status": "mastered",
    "updated": 1793320259339
   },
+  "telefonare\u0000to phone, to call": {
+   "firstTry": true,
+   "misses": 0,
+   "status": "mastered",
+   "updated": 1793320319803
+  },
   "venire\u0000to come (irregular)": {
    "firstTry": false,
    "misses": 1,
