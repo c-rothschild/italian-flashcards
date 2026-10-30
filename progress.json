@@ -198,6 +198,12 @@
    "status": "mastered",
    "updated": 1793328375372
   },
+  "loro vengono\u0000they come": {
+   "firstTry": false,
+   "misses": 1,
+   "status": "learning",
+   "updated": 1793328583505
+  },
   "lui/lei capisce\u0000he/she understands (also formal you)": {
    "firstTry": true,
    "misses": 0,
